@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffdf9"/>
+      <stop offset="1" stop-color="#faf0dd"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.8" cy="0.1" r="0.9">
+      <stop offset="0" stop-color="#ffb03c" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#ffb03c" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="drop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd08a"/>
+      <stop offset="1" stop-color="#e0902a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect x="0" y="0" width="1200" height="12" fill="#ffb03c"/>
+
+  <!-- honey drop mark -->
+  <g transform="translate(120,150)">
+    <rect width="132" height="132" rx="34" fill="url(#drop)"/>
+    <path d="M66 26C46 50 34 68 34 86a32 32 0 0 0 64 0C98 68 86 50 66 26z" fill="#3d2600"/>
+    <circle cx="66" cy="90" r="13" fill="#fff2d9"/>
+  </g>
+
+  <text x="120" y="380" font-size="128" font-weight="600" letter-spacing="2" fill="#101114">FWMH</text>
+  <text x="124" y="452" font-size="46" font-style="italic" fill="#9a5000">flow with milk and honey</text>
+
+  <!-- verse chip motif -->
+  <g transform="translate(124,505)">
+    <rect width="360" height="58" rx="12" fill="#fff1db" stroke="#dccbb4"/>
+    <rect x="18" y="17" width="22" height="24" rx="4" fill="none" stroke="#9a5000" stroke-width="2.4"/>
+    <text x="56" y="38" font-family="system-ui,sans-serif" font-size="24" font-weight="600" fill="#9a5000">John 3:16</text>
+    <rect x="196" y="15" width="150" height="28" rx="8" fill="#ffb03c"/>
+    <text x="211" y="35" font-family="system-ui,sans-serif" font-size="17" font-weight="700" fill="#3d2600">3 notes on it</text>
+  </g>
+
+  <text x="1080" y="590" text-anchor="end" font-family="system-ui,sans-serif" font-size="24" fill="#988a74">A product of Byteraft Limited · coming soon</text>
+</svg>

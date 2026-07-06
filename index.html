@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title data-i18n="meta.title">FWMH — Flow with milk and honey · Bible notes that link to Scripture</title>
+<meta name="description" data-i18n="meta.description" content="fwmh (Flow with milk and honey) is a scripture-aware notebook. Type a reference and it becomes a live verse chip; tap any verse to see every note you ever wrote on it. KJV · 和合本 · 當代譯本, Strong's concordance, offline and encrypted. Coming soon from Byteraft Limited." />
+<meta name="keywords" content="bible,scripture,notes,verse,study,devotional,journal,KJV,和合本,當代譯本,backlinks,sermon,prayer,offline,concordance,Strong's,靈修" />
+<meta name="author" content="Byteraft Limited" />
+<meta name="theme-color" content="#ffb03c" />
+<meta name="robots" content="index, follow" />
+<meta name="color-scheme" content="light dark" />
+
+<link rel="canonical" href="https://fwmh.byteraft.io/" />
+<link rel="alternate" hreflang="en" href="https://fwmh.byteraft.io/" />
+<link rel="alternate" hreflang="zh-Hant" href="https://fwmh.byteraft.io/?lang=zh-Hant" />
+<link rel="alternate" hreflang="zh-Hans" href="https://fwmh.byteraft.io/?lang=zh-Hans" />
+<link rel="alternate" hreflang="x-default" href="https://fwmh.byteraft.io/" />
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://fwmh.byteraft.io/" />
+<meta property="og:title" content="FWMH — Flow with milk and honey" />
+<meta property="og:description" content="A scripture-aware notebook. Write freely; every note finds its way back to the verse. Coming soon." />
+<meta property="og:site_name" content="FWMH" />
+<meta property="og:image" content="https://fwmh.byteraft.io/assets/og.svg" />
+<meta property="og:locale" content="en" />
+<meta property="og:locale:alternate" content="zh_Hant" />
+<meta property="og:locale:alternate" content="zh_Hans" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="FWMH — Flow with milk and honey" />
+<meta name="twitter:description" content="Type a reference, watch it become a verse — then see every note you've written on that passage. Coming soon." />
+<meta name="twitter:image" content="https://fwmh.byteraft.io/assets/og.svg" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ffb03c'/%3E%3Cpath d='M16 6c-3.6 4.2-6 7.2-6 10.4A6 6 0 0 0 22 16.4C22 13.2 19.6 10.2 16 6z' fill='%233d2600'/%3E%3C/svg%3E" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "FWMH — Flow with milk and honey",
+  "alternateName": "fwmh",
+  "applicationCategory": "ReferenceApplication",
+  "operatingSystem": "iOS, Android",
+  "url": "https://fwmh.byteraft.io/",
+  "description": "A scripture-aware notebook: type a reference and it becomes a live verse chip, then open any verse to see every note you ever wrote on it. KJV, 和合本 and 當代譯本, Strong's concordance, offline and encrypted.",
+  "inLanguage": ["en", "zh-Hant", "zh-Hans"],
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free to read, write, and export on-device. Only cross-device sync is paid." },
+  "publisher": { "@type": "Organization", "name": "Byteraft Limited", "url": "https://www.byteraft.io/" }
+}
+</script>
+
+<style>
+/* ============================================================
+   FWMH — Flow with milk and honey
+   Self-contained. No external requests. Light/dark aware.
+   Palette taken from the app's own production tokens
+   (src/ui/theme/tokens.ts + palette.ts): amber #ffb03c on cream.
+   ============================================================ */
+
+:root {
+  --amber: #ffb03c;
+  --on-amber: #3d2600;
+  --amber-solid: #b45309;
+  --teal: #0f766e; --violet: #7c3aed;   /* compare-view secondary hues */
+
+  --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, Cambria, 'Times New Roman', serif;
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'PingFang SC', 'PingFang TC', 'Microsoft JhengHei', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+
+  --maxw: 1120px;
+  --radius: 16px;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+
+  /* Light (default) — app light palette */
+  --bg: #fffdf9;
+  --bg-deep: #faf6f0;
+  --surface: #ffffff;
+  --surface-alt: #fff1db;
+  --surface-sunken: #f6efe3;
+  --ink: #101114;
+  --ink-2: #665a47;
+  --ink-3: #988a74;
+  --accent-text: #9a5000;
+  --border: #ece2d3;
+  --border-strong: #dccbb4;
+  --highlight: #fff0c2;
+  --teal-c: #0f766e; --violet-c: #7c3aed;
+  --shadow-sm: 0 1px 2px rgba(61,38,0,.05), 0 2px 8px rgba(61,38,0,.05);
+  --shadow-md: 0 4px 14px rgba(61,38,0,.08), 0 16px 40px rgba(61,38,0,.09);
+  --shadow-lg: 0 10px 30px rgba(61,38,0,.10), 0 30px 70px rgba(61,38,0,.14);
+}
+
+:root[data-theme="dark"] {
+  --bg: #101114;
+  --bg-deep: #0c0c0f;
+  --surface: #221d14;
+  --surface-alt: #2a2010;
+  --surface-sunken: #17130c;
+  --ink: #f3f4f6;
+  --ink-2: #c4b7a1;
+  --ink-3: #8c7e69;
+  --accent-text: #ffc879;
+  --amber-solid: #c2610a;
+  --border: #322817;
+  --border-strong: #493a24;
+  --highlight: #4a3d12;
+  --teal-c: #5eead4; --violet-c: #c4b5fd;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
+  --shadow-md: 0 6px 20px rgba(0,0,0,.45);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,.55);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"] {
+    --bg: #101114; --bg-deep: #0c0c0f; --surface: #221d14; --surface-alt: #2a2010; --surface-sunken: #17130c;
+    --ink: #f3f4f6; --ink-2: #c4b7a1; --ink-3: #8c7e69; --accent-text: #ffc879; --amber-solid: #c2610a;
+    --border: #322817; --border-strong: #493a24; --highlight: #4a3d12; --teal-c: #5eead4; --violet-c: #c4b5fd;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.4); --shadow-md: 0 6px 20px rgba(0,0,0,.45); --shadow-lg: 0 20px 60px rgba(0,0,0,.55);
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  font-family: var(--font-sans); background: var(--bg); color: var(--ink);
+  line-height: 1.6; font-size: 17px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  overflow-x: hidden; transition: background .4s var(--ease), color .4s var(--ease);
+}
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background: radial-gradient(1100px 620px at 78% -8%, rgba(255,176,60,.18), transparent 60%),
+              radial-gradient(900px 600px at 8% 8%, rgba(255,176,60,.08), transparent 55%);
+}
+img, svg { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+::selection { background: rgba(255,176,60,.35); color: var(--ink); }
+
+.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+.section-pad { padding: clamp(64px, 9vw, 128px) 0; }
+section { position: relative; }
+
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 650; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-text); }
+.eyebrow::before { content: ""; width: 22px; height: 2px; border-radius: 2px; background: var(--amber); }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.08; letter-spacing: -.01em; color: var(--ink); }
+h2.section-title { font-size: clamp(30px, 4.4vw, 46px); margin: 18px 0 16px; }
+.lede { font-size: clamp(17px, 2.1vw, 20px); color: var(--ink-2); max-width: 62ch; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; font-family: var(--font-sans); font-weight: 620; font-size: 15.5px; padding: 13px 22px; border-radius: 999px; border: 1px solid transparent; cursor: pointer; transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .25s, color .25s, border-color .25s; white-space: nowrap; }
+.btn-primary { background: var(--amber); color: var(--on-amber); box-shadow: 0 2px 0 rgba(180,83,9,.35), var(--shadow-md); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 0 rgba(180,83,9,.35), var(--shadow-lg); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--border-strong); }
+.btn-ghost:hover { border-color: var(--amber); color: var(--accent-text); transform: translateY(-2px); }
+.btn svg { width: 17px; height: 17px; }
+
+/* Header */
+header.nav { position: sticky; top: 0; z-index: 100; backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); background: color-mix(in srgb, var(--bg) 80%, transparent); border-bottom: 1px solid transparent; transition: border-color .3s, background .3s; }
+header.nav.scrolled { border-bottom-color: var(--border); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 12px; }
+.brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 700; flex: none; }
+.brand .mark { width: 34px; height: 34px; border-radius: 9px; flex: none; background: var(--amber); display: grid; place-items: center; box-shadow: var(--shadow-sm); }
+.brand .mark svg { width: 20px; height: 20px; }
+.brand .word { display: flex; flex-direction: column; line-height: 1; }
+.brand .word b { font-family: var(--font-sans); font-size: 17px; letter-spacing: .06em; color: var(--ink); }
+.brand .word small { font-family: var(--font-display); font-style: italic; font-size: 11.5px; color: var(--ink-3); margin-top: 3px; }
+.nav-links { display: flex; align-items: center; gap: 2px; }
+.nav-links a.navlink { padding: 8px 13px; border-radius: 8px; font-size: 15px; font-weight: 550; color: var(--ink-2); transition: color .2s, background .2s; }
+.nav-links a.navlink:hover { color: var(--ink); background: var(--surface-alt); }
+.nav-actions { display: flex; align-items: center; gap: 8px; }
+
+.icon-btn { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: transparent; border: 1px solid var(--border); color: var(--ink-2); cursor: pointer; transition: color .2s, border-color .2s, background .2s; flex: none; }
+.icon-btn:hover { color: var(--accent-text); border-color: var(--border-strong); background: var(--surface-alt); }
+.icon-btn svg { width: 19px; height: 19px; }
+.theme-toggle .moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .moon { display: block; }
+@media (prefers-color-scheme: dark) { :root[data-theme="auto"] .theme-toggle .sun { display: none; } :root[data-theme="auto"] .theme-toggle .moon { display: block; } }
+
+/* Language switcher */
+.lang { display: inline-flex; background: var(--surface-alt); border: 1px solid var(--border); border-radius: 999px; padding: 3px; gap: 2px; }
+.lang-btn { border: 0; background: transparent; color: var(--ink-2); font-family: var(--font-sans); font-weight: 620; font-size: 13px; padding: 6px 11px; border-radius: 999px; cursor: pointer; transition: background .2s, color .2s; line-height: 1; }
+.lang-btn:hover { color: var(--ink); }
+.lang-btn.active { background: var(--amber); color: var(--on-amber); }
+.nav-links .lang { display: none; }   /* the in-menu switcher only shows on mobile */
+
+.nav-toggle { display: none; }
+
+/* Hero */
+.hero { padding-top: clamp(44px, 7vw, 84px); padding-bottom: clamp(48px, 8vw, 96px); }
+.hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+.hero h1 { font-size: clamp(40px, 6.6vw, 76px); margin: 20px 0; }
+.hero h1 .accent { font-style: italic; color: var(--accent-text); }
+.hero .lede { font-size: clamp(18px, 2.3vw, 21px); }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 20px 28px; margin-top: 30px; color: var(--ink-2); font-size: 14.5px; }
+.hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+.hero-meta svg { width: 16px; height: 16px; color: var(--accent-text); flex: none; }
+.pill-badge { display: inline-flex; align-items: center; gap: 9px; background: var(--surface-alt); border: 1px solid var(--border-strong); color: var(--accent-text); font-weight: 600; font-size: 13px; letter-spacing: .04em; padding: 7px 14px 7px 11px; border-radius: 999px; }
+.pill-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 0 4px rgba(255,176,60,.25); animation: pulse 2.6s var(--ease) infinite; }
+@keyframes pulse { 0%,100% { box-shadow: 0 0 0 3px rgba(255,176,60,.28); } 50% { box-shadow: 0 0 0 7px rgba(255,176,60,0); } }
+@media (prefers-reduced-motion: reduce) { .pill-badge .dot { animation: none; } }
+
+/* Hero mock */
+.mock { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; box-shadow: var(--shadow-lg); padding: 22px; overflow: hidden; }
+.mock::after { content:""; position:absolute; inset:0; pointer-events:none; background: repeating-linear-gradient(to bottom, transparent 0 43px, color-mix(in srgb, var(--border) 55%, transparent) 43px 44px); opacity:.5; z-index:0; }
+.mock > * { position: relative; z-index: 1; }
+.mock-head { display: flex; align-items: center; gap: 9px; margin-bottom: 16px; color: var(--ink-3); font-size: 13px; }
+.mock-head .dots { display: flex; gap: 6px; }
+.mock-head .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--border-strong); display: block; }
+.mock-title { font-family: var(--font-display); font-size: 21px; margin-bottom: 4px; }
+.mock p { font-size: 15px; color: var(--ink-2); margin: 10px 0; }
+.chip { display: inline-flex; align-items: center; gap: 6px; background: var(--surface-alt); border: 1px solid var(--border-strong); color: var(--accent-text); font-weight: 600; font-size: 14px; padding: 2px 9px; border-radius: 7px; vertical-align: baseline; cursor: default; }
+.chip svg { width: 13px; height: 13px; }
+.chip .n { background: var(--amber); color: var(--on-amber); font-size: 11px; font-weight: 700; border-radius: 5px; padding: 0 5px; }
+.verse-quote { border-left: 3px solid var(--amber); background: var(--surface-alt); padding: 12px 16px; border-radius: 0 10px 10px 0; margin: 12px 0; font-family: var(--font-display); font-size: 15.5px; color: var(--ink); font-style: italic; }
+.verse-quote cite { display: block; font-style: normal; font-family: var(--font-sans); font-size: 12.5px; color: var(--accent-text); margin-top: 7px; font-weight: 600; }
+.backlink-card { margin-top: 14px; background: var(--surface-sunken); border: 1px solid var(--border); border-radius: 12px; padding: 13px 14px; }
+.backlink-card .bh { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent-text); margin-bottom: 10px; }
+.backlink-card .bh svg { width: 14px; height: 14px; }
+.backlink-row { display: flex; gap: 10px; padding: 7px 0; border-top: 1px dashed var(--border-strong); font-size: 13.5px; }
+.backlink-row:first-of-type { border-top: 0; }
+.backlink-row .bd { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); margin-top: 7px; flex: none; }
+.backlink-row .bt { color: var(--ink-2); }
+.backlink-row .bt b { color: var(--ink); font-weight: 620; }
+
+/* Trust strip */
+.trust { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: color-mix(in srgb, var(--surface) 55%, transparent); }
+.trust-inner { display: flex; align-items: center; gap: 20px 26px; flex-wrap: wrap; justify-content: center; padding: 22px 0; color: var(--ink-3); font-size: 14px; }
+.trust-inner .lab { font-weight: 650; letter-spacing: .08em; text-transform: uppercase; font-size: 12px; color: var(--ink-3); }
+.trust-inner .tg { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--ink-2); }
+.trust-inner .tg em { font-style: normal; font-family: var(--font-display); }
+
+/* Problem */
+.problem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 44px; }
+.pcard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; transition: transform .3s var(--ease), border-color .3s, box-shadow .3s; }
+.pcard:hover { transform: translateY(-4px); border-color: var(--border-strong); box-shadow: var(--shadow-md); }
+.pcard h3 { font-family: var(--font-sans); font-size: 16px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pcard h3 .tag { font-size: 11px; font-weight: 600; color: var(--ink-3); }
+.pcard p { font-size: 14.5px; color: var(--ink-2); }
+
+/* Wedge */
+.wedge { background: var(--bg-deep); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.wedge-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: clamp(32px, 5vw, 68px); align-items: center; }
+.big-quote { font-family: var(--font-display); font-size: clamp(26px, 3.6vw, 38px); line-height: 1.18; }
+.big-quote .hl { background: linear-gradient(transparent 62%, var(--highlight) 62%); padding: 0 2px; }
+.wedge ul.steps { list-style: none; margin-top: 26px; display: grid; gap: 4px; }
+.wedge ul.steps li { display: flex; gap: 15px; padding: 15px 0; border-top: 1px solid var(--border); }
+.wedge ul.steps li:first-child { border-top: 0; }
+.wedge ul.steps .num { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--on-amber); background: var(--amber); width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; flex: none; }
+.wedge ul.steps h4 { font-size: 16px; font-weight: 660; margin-bottom: 3px; font-family: var(--font-sans); }
+.wedge ul.steps p { font-size: 14.5px; color: var(--ink-2); }
+.flow { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; box-shadow: var(--shadow-lg); padding: 26px; }
+.flow .step-lab { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-text); margin-bottom: 12px; display:flex; align-items:center; gap:8px; }
+.flow .type-line { font-family: var(--font-mono); font-size: 15px; background: var(--surface-sunken); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; color: var(--ink-2); }
+.flow .type-line .caret { color: var(--amber); font-weight: 700; }
+.flow .arrow { display: grid; place-items: center; color: var(--amber); padding: 10px 0; }
+.flow .arrow svg { width: 22px; height: 22px; }
+
+/* Features */
+.feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 48px; }
+.fcard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px 24px; transition: transform .3s var(--ease), border-color .3s, box-shadow .3s; }
+.fcard:hover { transform: translateY(-5px); border-color: var(--amber); box-shadow: var(--shadow-md); }
+.fic { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; background: var(--surface-alt); color: var(--accent-text); margin-bottom: 18px; border: 1px solid var(--border-strong); }
+.fic svg { width: 23px; height: 23px; }
+.fcard h3 { font-family: var(--font-sans); font-size: 18px; font-weight: 680; margin-bottom: 9px; }
+.fcard p { font-size: 15px; color: var(--ink-2); }
+.fcard .later { display: inline-block; margin-top: 12px; font-size: 11px; font-weight: 650; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); border: 1px solid var(--border-strong); border-radius: 6px; padding: 2px 7px; }
+
+/* Personas */
+.persona-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 44px; }
+.persona { text-align: left; padding: 24px 20px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border); }
+.persona .emoji { font-size: 26px; margin-bottom: 12px; }
+.persona h4 { font-family: var(--font-sans); font-size: 16px; font-weight: 680; margin-bottom: 6px; }
+.persona p { font-size: 14px; color: var(--ink-2); }
+
+/* Bibles */
+.bibles { background: var(--bg-deep); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.bible-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 44px; }
+.bpanel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+.bpanel h3 { font-family: var(--font-sans); font-size: 15px; text-transform: uppercase; letter-spacing: .06em; color: var(--accent-text); margin-bottom: 18px; }
+.brow { display: flex; align-items: baseline; gap: 12px; padding: 12px 0; border-top: 1px solid var(--border); }
+.brow:first-of-type { border-top: 0; }
+.brow .code { font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--on-amber); background: var(--amber); padding: 3px 8px; border-radius: 6px; flex: none; }
+.brow .code.pd { background: var(--surface-alt); color: var(--accent-text); border: 1px solid var(--border-strong); }
+.brow .bn { font-weight: 620; }
+.brow .bn small { display: block; color: var(--ink-3); font-weight: 400; font-size: 13px; }
+
+/* Pricing */
+.price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 44px; }
+.price { border-radius: var(--radius); padding: 32px; border: 1px solid var(--border); }
+.price.free { background: var(--surface); }
+.price.paid { background: linear-gradient(160deg, var(--surface-alt), var(--surface)); border-color: var(--border-strong); }
+.price .ph { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 6px; gap: 12px; }
+.price h3 { font-family: var(--font-sans); font-size: 20px; font-weight: 720; }
+.price .free-tag { font-size: 13px; font-weight: 700; color: var(--accent-text); text-transform: uppercase; letter-spacing: .05em; }
+.price > p { font-size: 14.5px; color: var(--ink-2); margin-bottom: 18px; }
+.price ul { list-style: none; display: grid; gap: 11px; }
+.price li { display: flex; gap: 11px; font-size: 15px; color: var(--ink); }
+.price li svg { width: 19px; height: 19px; color: var(--accent-text); flex: none; margin-top: 2px; }
+.price li.muted { color: var(--ink-2); }
+.price li.muted svg { color: var(--ink-3); }
+.price-note { text-align: center; margin-top: 26px; color: var(--ink-3); font-size: 14px; }
+
+/* Phone frame showcase */
+.showcase { background: var(--bg-deep); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.showcase-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(32px,5vw,72px); align-items: center; }
+.phone { width: 300px; max-width: 74vw; margin: 0 auto; aspect-ratio: 1080 / 2400; background: #0b0b0d; border-radius: 44px; padding: 13px; box-shadow: var(--shadow-lg), inset 0 0 0 2px rgba(255,255,255,.05); position: relative; }
+.phone::before { content:""; position:absolute; top:15px; left:50%; transform:translateX(-50%); width:34px; height:34px; z-index:4; }
+.phone .notch { position:absolute; top:20px; left:50%; transform:translateX(-50%); width:12px; height:12px; border-radius:50%; background:#1c1c22; box-shadow: inset 0 0 3px rgba(0,0,0,.8); z-index:5; }
+.phone .screen { width:100%; height:100%; border-radius:32px; overflow:hidden; background: var(--surface); position:relative; }
+.phone .screen img { width:100%; height:100%; object-fit: cover; object-position: top center; display:block; }
+.showcase-points { list-style:none; display:grid; gap:20px; margin-top:8px; }
+.showcase-points li { display:flex; gap:14px; }
+.showcase-points .ico { width:44px;height:44px;border-radius:12px;background:var(--surface-alt);border:1px solid var(--border-strong);display:grid;place-items:center;color:var(--accent-text);flex:none; }
+.showcase-points .ico svg { width:22px;height:22px; }
+.showcase-points h4 { font-family:var(--font-sans); font-size:17px; font-weight:680; margin-bottom:3px; }
+.showcase-points p { font-size:14.5px; color:var(--ink-2); }
+
+/* Plans with real prices */
+.plan-price { display:flex; align-items:baseline; gap:10px; margin:2px 0 6px; flex-wrap:wrap; }
+.plan-price .was { font-size:19px; color:var(--ink-3); text-decoration:line-through; }
+.plan-price .now { font-family:var(--font-display); font-size:42px; font-weight:700; color:var(--ink); line-height:1; }
+.plan-price .per { font-size:14px; color:var(--ink-2); }
+.plan-tabs { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:8px 0 18px; }
+.plan-tab { border:1px solid var(--border-strong); border-radius:12px; padding:14px; position:relative; }
+.plan-tab.best { border-color:var(--amber); background:var(--surface-alt); }
+.plan-tab .lab { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-3); }
+.plan-tab.best .lab { color:var(--accent-text); }
+.plan-tab .pr { font-family:var(--font-display); font-size:27px; font-weight:700; margin-top:6px; line-height:1; }
+.plan-tab .per { font-size:12.5px; color:var(--ink-2); }
+.plan-tab .old { font-size:12.5px; color:var(--ink-3); text-decoration:line-through; margin-top:4px; }
+.badge-best { position:absolute; top:-10px; right:12px; background:var(--amber); color:var(--on-amber); font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:3px 8px; border-radius:6px; }
+
+/* Feature comparison table */
+.cmp-wrap { margin-top:14px; overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--border); border-radius:16px; background:var(--surface); }
+table.cmp { width:100%; border-collapse:collapse; min-width:540px; }
+table.cmp th, table.cmp td { padding:15px 18px; text-align:left; border-bottom:1px solid var(--border); }
+table.cmp thead th { font-family:var(--font-sans); font-size:13px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-3); font-weight:700; }
+table.cmp thead th.col { text-align:center; width:128px; }
+table.cmp thead th.paid { color:var(--accent-text); }
+table.cmp td.feat { font-weight:560; color:var(--ink); font-size:15px; }
+table.cmp td.feat small { display:block; color:var(--ink-3); font-weight:400; font-size:12.5px; margin-top:2px; }
+table.cmp td.cell { text-align:center; font-size:14px; }
+table.cmp tbody tr:last-child td { border-bottom:0; }
+table.cmp tbody tr.grp td { background:var(--surface-sunken); font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-3); font-weight:700; padding:9px 18px; }
+table.cmp .paidcol { background: color-mix(in srgb, var(--surface-alt) 55%, transparent); }
+.ck svg { width:19px; height:19px; color:var(--accent-text); display:inline-block; vertical-align:middle; }
+.no { color:var(--ink-3); font-size:18px; opacity:.55; }
+.cell .tag2 { font-size:12.5px; color:var(--ink-2); }
+@media (max-width: 960px) { .showcase-grid { grid-template-columns: 1fr; } .phone { margin-bottom: 8px; } .plan-tabs { grid-template-columns:1fr 1fr; } }
+
+/* Together — group devotions & streak gifts */
+.together { background: var(--bg-deep); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.sub-h { font-family: var(--font-sans); font-size: 21px; font-weight: 720; margin-bottom: 8px; }
+.sub-p { font-size: 15.5px; color: var(--ink-2); max-width: 64ch; }
+.streak-flame { display:inline-flex; align-items:center; gap:10px; background:var(--surface-alt); border:1px solid var(--border-strong); border-radius:999px; padding:10px 18px; font-weight:640; color:var(--accent-text); margin-top:16px; }
+.streak-flame .num { font-family:var(--font-display); font-size:24px; color:var(--ink); }
+.gsizes { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:20px; }
+.gsize { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px 16px; text-align:center; }
+.gsize.free { border-color:var(--amber); }
+.gsize .cap { font-family:var(--font-display); font-size:34px; font-weight:700; color:var(--ink); line-height:1; }
+.gsize .who { font-size:13px; color:var(--ink-2); margin-top:8px; font-weight:560; }
+.gsize .seat { font-size:12px; color:var(--accent-text); font-weight:650; margin-top:6px; }
+.rewards { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:24px; }
+.reward { border:1px solid var(--border); border-radius:16px; padding:26px 24px; background:var(--surface); }
+.reward.top { border-color:var(--amber); background:linear-gradient(160deg,var(--surface-alt),var(--surface)); }
+.reward .pct { font-family:var(--font-display); font-size:38px; font-weight:700; color:var(--accent-text); line-height:1; }
+.reward h4 { font-family:var(--font-sans); font-size:17px; font-weight:720; margin:12px 0 6px; }
+.reward p { font-size:14px; color:var(--ink-2); }
+.reward .gift { display:inline-block; margin-top:12px; font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--on-amber); background:var(--amber); padding:4px 10px; border-radius:7px; }
+.formula { margin-top:22px; background:var(--surface-sunken); border:1px solid var(--border); border-left:3px solid var(--amber); border-radius:0 12px 12px 0; padding:18px 20px; font-size:14.5px; color:var(--ink-2); max-width:70ch; }
+.formula b { color:var(--accent-text); }
+.formula .eq { font-family:var(--font-mono); font-size:13.5px; color:var(--ink); margin:10px 0; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:10px 12px; }
+@media (max-width:820px){ .gsizes{grid-template-columns:1fr 1fr;} .rewards{grid-template-columns:1fr;} }
+
+/* Waitlist */
+.waitlist { text-align: center; }
+.waitlist-card { max-width: 720px; margin: 0 auto; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 24px; padding: clamp(32px, 5vw, 56px); box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
+.waitlist-card::before { content:""; position:absolute; inset:0; z-index:0; background: radial-gradient(600px 240px at 50% -30%, rgba(255,176,60,.22), transparent 70%); }
+.waitlist-card > * { position: relative; z-index: 1; }
+.waitlist h2 { font-size: clamp(28px, 4vw, 42px); }
+.wl-form { display: flex; gap: 10px; max-width: 480px; margin: 26px auto 0; flex-wrap: wrap; justify-content: center; }
+.wl-form input { flex: 1 1 240px; min-width: 0; padding: 14px 18px; border-radius: 999px; font-size: 15.5px; border: 1px solid var(--border-strong); background: var(--bg); color: var(--ink); font-family: var(--font-sans); transition: border-color .2s, box-shadow .2s; }
+.wl-form input:focus { outline: none; border-color: var(--amber); box-shadow: 0 0 0 4px rgba(255,176,60,.25); }
+.wl-note { font-size: 13px; color: var(--ink-3); margin-top: 16px; }
+.wl-success { display: none; align-items: center; justify-content: center; gap: 10px; margin-top: 22px; color: var(--accent-text); font-weight: 620; font-size: 16px; }
+.wl-success svg { width: 22px; height: 22px; }
+.wl-success.show { display: flex; }
+
+/* FAQ */
+.faq { max-width: 820px; margin: 44px auto 0; }
+.faq details { border-bottom: 1px solid var(--border); }
+.faq summary { list-style: none; cursor: pointer; padding: 22px 4px; font-size: 18px; font-weight: 640; font-family: var(--font-sans); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary .plus { flex: none; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--border-strong); display: grid; place-items: center; color: var(--accent-text); transition: transform .3s var(--ease), background .3s; font-size: 18px; line-height: 1; }
+.faq details[open] summary .plus { transform: rotate(45deg); background: var(--surface-alt); }
+.faq .fa-body { padding: 0 4px 22px; color: var(--ink-2); font-size: 15.5px; max-width: 70ch; }
+
+/* Footer */
+footer { border-top: 1px solid var(--border); background: var(--surface-sunken); }
+.foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 40px; padding: 60px 0 40px; }
+.foot-about { max-width: 40ch; }
+.foot-about p { color: var(--ink-2); font-size: 14.5px; margin-top: 16px; }
+.foot-col h5 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); margin-bottom: 14px; font-weight: 700; }
+.foot-col a { display: block; color: var(--ink-2); font-size: 15px; padding: 6px 0; transition: color .2s; }
+.foot-col a:hover { color: var(--accent-text); }
+.foot-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; padding: 22px 0; border-top: 1px solid var(--border); color: var(--ink-3); font-size: 13.5px; }
+.foot-bottom .by a { color: var(--accent-text); font-weight: 620; }
+
+/* Reveal */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+/* Responsive */
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  .hero-grid, .wedge-grid { grid-template-columns: 1fr; }
+  .hero-visual { order: -1; }
+  .problem-grid, .persona-grid { grid-template-columns: repeat(2, 1fr); }
+  .feat-grid { grid-template-columns: repeat(2, 1fr); }
+  .bible-grid, .price-grid { grid-template-columns: 1fr; }
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+  .foot-about { grid-column: 1 / -1; }
+  .nav-toggle { display: grid; }
+  .lang-desktop { display: none; }
+  .nav-links.open { display: flex; flex-direction: column; align-items: stretch; gap: 2px; position: absolute; top: 68px; left: 0; right: 0; padding: 12px; background: var(--surface); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-md); }
+  .nav-links.open a.navlink { padding: 12px 14px; font-size: 16px; }
+  .nav-links.open .lang { display: inline-flex; align-self: flex-start; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .problem-grid, .persona-grid, .feat-grid { grid-template-columns: 1fr; }
+  .foot-grid { grid-template-columns: 1fr; }
+  .hero-cta .btn { flex: 1 1 100%; }
+  .brand .word small { display: none; }
+  .lang-btn { padding: 6px 9px; }
+}
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.grid3 { grid-template-columns: repeat(3, 1fr) !important; }
+@media (max-width: 640px) { .grid3 { grid-template-columns: 1fr !important; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand" aria-label="FWMH — Flow with milk and honey, home">
+      <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3C8.6 7.6 6.5 10.8 6.5 14a5.5 5.5 0 0 0 11 0C17.5 10.8 15.4 7.6 12 3z" fill="#3d2600"/><circle cx="12" cy="14.5" r="2" fill="#ffb03c"/></svg></span>
+      <span class="word"><b>FWMH</b><small data-i18n="brand.tagline">flow with milk &amp; honey</small></span>
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a class="navlink" href="#idea" data-i18n="nav.idea">The idea</a>
+      <a class="navlink" href="#features" data-i18n="nav.features">Features</a>
+      <a class="navlink" href="#how" data-i18n="nav.how">How it works</a>
+      <a class="navlink" href="#bibles" data-i18n="nav.bibles">Bibles</a>
+      <a class="navlink" href="#pricing" data-i18n="nav.pricing">Pricing</a>
+      <div class="lang" role="group" aria-label="Language" style="margin-top:10px">
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="zh-Hant">繁</button>
+        <button class="lang-btn" data-lang="zh-Hans">简</button>
+      </div>
+    </nav>
+    <div class="nav-actions">
+      <div class="lang lang-desktop" role="group" aria-label="Language">
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="zh-Hant">繁</button>
+        <button class="lang-btn" data-lang="zh-Hans">简</button>
+      </div>
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle light or dark theme" title="Toggle light / dark">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.5M12 19v2.5M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M2.5 12H5M19 12h2.5M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20 14.5A8 8 0 0 1 9.5 4a.9.9 0 0 0-1.2-1.1A9.5 9.5 0 1 0 21.1 15.7.9.9 0 0 0 20 14.5z"/></svg>
+      </button>
+      <a href="#waitlist" class="btn btn-primary" style="padding:10px 18px;" data-i18n="nav.cta">Join the waitlist</a>
+      <button class="icon-btn nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<a id="top"></a>
+
+<!-- HERO -->
+<section class="hero section-pad" style="padding-bottom:clamp(40px,7vw,80px)">
+  <div class="wrap hero-grid">
+    <div class="hero-copy reveal">
+      <span class="pill-badge"><span class="dot" aria-hidden="true"></span> <span data-i18n="hero.badge">Coming soon · iOS &amp; Android</span></span>
+      <h1><span data-i18n="hero.h1a">Flow with</span> <span class="accent" data-i18n="hero.h1b">milk&nbsp;and&nbsp;honey.</span></h1>
+      <p class="lede" data-i18n="hero.lede">A scripture-aware notebook for people who study the Bible and write about it. Type a reference and it becomes a live verse chip as you write — and later, every note you ever wrote finds its way back to the passage it touches.</p>
+      <div class="hero-cta">
+        <a href="#waitlist" class="btn btn-primary"><span data-i18n="hero.cta1">Join the waitlist</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#idea" class="btn btn-ghost" data-i18n="hero.cta2">See the idea</a>
+      </div>
+      <div class="hero-meta">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7a2 2 0 0 1 2-2h5l2 2h5a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/></svg> <span data-i18n="hero.m1">Local-first &amp; offline</span></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg> <span data-i18n="hero.m2">Encrypted on your device</span></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg> <span data-i18n="hero.m3">Reading is always free</span></span>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="mock" role="img" aria-label="A note in FWMH: the reference John 3:16 has become an inline verse chip that quotes the verse, and a backlinks panel shows other notes that cite the same verse.">
+        <div class="mock-head"><span class="dots"><i></i><i></i><i></i></span><span data-i18n="mock.head">Sunday gathering · Creation &amp; new creation</span></div>
+        <div class="mock-title" data-i18n="mock.title">Notes from this morning</div>
+        <p data-i18n="mock.p1">The whole talk hinges on one move — from the first creation to the new. He started here:</p>
+        <p><span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 5.5A2 2 0 0 1 6 4h12v14H6a2 2 0 0 0-2 2z"/></svg> John 3:16 <span class="n">3</span></span> <span data-i18n="mock.p2">— and I want to sit with it.</span></p>
+        <blockquote class="verse-quote"><span data-i18n="mock.verse">“For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.”</span><cite data-i18n="mock.cite">John 3:16 · KJV</cite></blockquote>
+        <div class="backlink-card">
+          <div class="bh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 15l6-6M8 9H6a3 3 0 0 0 0 6h2M16 9h2a3 3 0 0 1 0 6h-2"/></svg> <span data-i18n="mock.backlink.head">You’ve written on this verse in 3 notes</span></div>
+          <div class="backlink-row"><span class="bd"></span><span class="bt" data-i18n-html="mock.backlink.r1"><b>Quiet time · Nicodemus</b> — “born again” isn’t effort, it’s birth…</span></div>
+          <div class="backlink-row"><span class="bd"></span><span class="bt" data-i18n-html="mock.backlink.r2"><b>小組 · God’s love</b> — 神愛世人 — the scope is the whole κόσμος…</span></div>
+          <div class="backlink-row"><span class="bd"></span><span class="bt" data-i18n-html="mock.backlink.r3"><b>Study · The gift</b> — “gave” — the verb carries the whole gospel.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<div class="trust">
+  <div class="wrap trust-inner">
+    <span class="lab" data-i18n="trust.lab">At launch</span>
+    <span class="tg"><em>KJV</em> <span data-i18n="trust.kjv">English</span></span>
+    <span class="tg"><em>和合本</em> <span data-i18n="trust.cuv">Chinese</span></span>
+    <span class="tg"><em>當代譯本</em> <span data-i18n="trust.occb">Chinese</span></span>
+    <span class="tg" data-i18n="trust.strongs">Strong’s concordance</span>
+    <span class="tg" data-i18n="trust.ui">繁體 · 简体 · English</span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="section-pad" id="problem">
+  <div class="wrap">
+    <div class="reveal" style="max-width:64ch">
+      <span class="eyebrow" data-i18n="problem.eyebrow">The problem</span>
+      <h2 class="section-title" data-i18n="problem.title">Your notes are stranded.</h2>
+      <p class="lede" data-i18n="problem.lede">You reference many passages in one sitting, and you want those notes to come back to you later — organised around Scripture. Today they don’t. Either the writing is interrupted by navigation, or the notes are trapped wherever you filed them.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="pcard reveal"><h3>YouVersion <span class="tag" data-i18n="problem.c1.tag">reading app</span></h3><p data-i18n="problem.c1.body">Great for reading. But notes are plain text, filed one verse at a time, with no rich editor — and no way to open a verse and see everything you’ve written on it.</p></div>
+      <div class="pcard reveal"><h3>Logos <span class="tag" data-i18n="problem.c2.tag">library</span></h3><p data-i18n="problem.c2.body">Deep, but it makes you navigate <em>to</em> a verse to attach a note. When a talk crosses Genesis, Luke, then Romans, you spend it navigating instead of writing.</p></div>
+      <div class="pcard reveal"><h3><span data-i18n="problem.c3.name">Paper</span> <span class="tag" data-i18n="problem.c3.tag">notebook</span></h3><p data-i18n="problem.c3.body">Fast to write, impossible to search. Your note on Romans 8:28 from last year is gone. Nothing gathers itself back onto the verse.</p></div>
+      <div class="pcard reveal"><h3>Notion / Obsidian <span class="tag" data-i18n="problem.c4.tag">no Bible smarts</span></h3><p data-i18n="problem.c4.body">Writing-first, but a reference is just text. No verse preview, no canonical identity, no backlink from a verse to your notes. You’d have to build all of it yourself.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WEDGE -->
+<section class="wedge section-pad" id="idea">
+  <div class="wrap wedge-grid">
+    <div class="reveal">
+      <span class="eyebrow" data-i18n="idea.eyebrow">The one idea</span>
+      <h2 class="section-title" style="margin-bottom:22px" data-i18n="idea.title">Flow, not filing.</h2>
+      <p class="big-quote"><span data-i18n="idea.q1">Write at the speed of thought — and trust that</span> <span class="hl" data-i18n="idea.q2">every note self-organises around the Scripture it touches.</span></p>
+      <ul class="steps">
+        <li><span class="num">1</span><div><h4 data-i18n="idea.s1.h">You write freely</h4><p data-i18n="idea.s1.p">Type “Gen 1:1”, “Luke 2”, or “約 3:16”. FWMH recognises it and turns it into an inline chip that quotes the verse. You never leave your note.</p></div></li>
+        <li><span class="num">2</span><div><h4 data-i18n="idea.s2.h">References resolve themselves</h4><p data-i18n="idea.s2.p">Ranges, cross-chapters, multi-refs — English and 中文. Low-confidence matches are surfaced as confirmable “unlinked mentions”, never silently mis-linked.</p></div></li>
+        <li><span class="num">3</span><div><h4 data-i18n="idea.s3.h">The note comes back to the verse</h4><p data-i18n="idea.s3.p">Weeks later, open John 3:16 and a panel shows every note you ever wrote that cited it — with a preview of what you said. That backlink is the product.</p></div></li>
+      </ul>
+    </div>
+    <div class="reveal">
+      <div class="flow">
+        <div class="step-lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9M3 20l1-4 11-11 3 3-11 11z"/></svg> <span data-i18n="flow.l1">You type, mid-sentence</span></div>
+        <div class="type-line"><span data-i18n="flow.t1">…the speaker opened in</span> <span class="caret">John 3:16</span>|</div>
+        <div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M6 14l6 6 6-6"/></svg></div>
+        <div class="step-lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="flow.l2">It becomes a living verse</span></div>
+        <div class="type-line" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span data-i18n="flow.t2">…the speaker opened in</span> <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 5.5A2 2 0 0 1 6 4h12v14H6a2 2 0 0 0-2 2z"/></svg> John 3:16</span></div>
+        <div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M6 14l6 6 6-6"/></svg></div>
+        <div class="step-lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 15l6-6M8 9H6a3 3 0 0 0 0 6h2M16 9h2a3 3 0 0 1 0 6h-2"/></svg> <span data-i18n="flow.l3">Tap it — later, anywhere</span></div>
+        <div class="type-line" style="color:var(--accent-text);font-weight:600" data-i18n="flow.t3">↳ 3 notes cite John 3:16 · tap to read them all</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section-pad" id="features">
+  <div class="wrap">
+    <div class="reveal" style="max-width:60ch">
+      <span class="eyebrow" data-i18n="feat.eyebrow">What’s inside</span>
+      <h2 class="section-title" data-i18n="feat.title">A notebook that understands Scripture.</h2>
+      <p class="lede" data-i18n="feat.lede">Notion-style writing, but it reads the Bible with you. Everything below works offline, on your device, with your words kept yours.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="fcard reveal"><div class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 5.5A2 2 0 0 1 6 4h12v14H6a2 2 0 0 0-2 2z"/><path d="M9 8h6M9 11h4"/></svg></div><h3 data-i18n="feat.f1.h">Scripture chips</h3><p data-i18n="feat.f1.p">Type a reference in English or 中文 and it becomes an inline chip that quotes the verse. Single-tap for a thumb-friendly sheet with version tabs and the full passage.</p></div>
+      <div class="fcard reveal"><div class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 15l6-6M8 9H6a3 3 0 0 0 0 6h2M16 9h2a3 3 0 0 1 0 6h-2"/></svg></div><h3 data-i18n="feat.f2.h">Per-verse backlinks</h3><p data-i18n="feat.f2.p">Open any verse and see every note that ever cited it — with a preview of what you wrote. The one move no other app makes.</p></div>
+      <div class="fcard reveal"><div class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 5h16M4 5v14M20 5v14M4 19h16"/><path d="M8 9h3M8 12h3M14 9h2M14 12h2"/></svg></div><h3 data-i18n="feat.f3.h">Strong’s concordance</h3><p data-i18n="feat.f3.p">Long-press a verse to go under the English and Chinese to the original word — Strong’s number, a lexicon card, and the STEP senses that group where that word appears.</p></div>
+      <div class="fcard reveal"><div class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 19V5M4 19h16M8 16V9M12 16V6M16 16v-4M20 16V8"/></svg></div><h3 data-i18n="feat.f4.h">Word study, deeper</h3><p data-i18n="feat.f4.p">Tap into a word for etymology, semantic range, theology, and how it works in this exact verse — full study articles, free across the four Gospels.</p></div>
+      <div class="fcard reveal"><div class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 5h6v14H4zM14 5h6v14h-6z"/></svg></div><h3 data-i18n="feat.f5.h">Compare translations</h3><p data-i18n="feat.f5.p">Read up to three versions side by side, colour-coded — KJV, 和合本, and 當代譯本 — or flip a chip between original and translation in one tap.</p></div>
+      <div class="fcard reveal"><div class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div><h3 data-i18n="feat.f6.h">Full-text search</h3><p data-i18n="feat.f6.p">Search the whole Bible and all of your notes — including Chinese — instantly and offline, with search built to segment CJK text properly.</p></div>
+      <div class="fcard reveal"><div class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="6" cy="7" r="2.2"/><circle cx="18" cy="7" r="2.2"/><circle cx="12" cy="17" r="2.2"/><path d="M7.6 8.6L11 15M16.4 8.6L13 15M8 7h8"/></svg></div><h3 data-i18n="feat.f7.h">Tags, graph &amp; plans</h3><p data-i18n="feat.f7.p">Tags, wikilinks, a backlinks graph, reading plans, collections and highlights — the study tools around the notes, without the clutter.</p></div>
+      <div class="fcard reveal"><div class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><h3 data-i18n="feat.f8.h">Offline &amp; encrypted</h3><p data-i18n="feat.f8.p">Reading and writing both work with no signal. Your notes live on-device in an encrypted store (SQLCipher, AES-256), excluded from cloud backups.</p></div>
+      <div class="fcard reveal"><div class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v12M8 11l4 4 4-4"/><path d="M5 21h14"/></svg></div><h3 data-i18n="feat.f9.h">Your data is yours</h3><p data-i18n="feat.f9.p">Lossless Markdown and JSON export, always and never gated. No lock-in, no scraping, no closed ecosystem — and we never read your notes for analytics.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE: real device -->
+<section class="section-pad showcase" id="showcase">
+  <div class="wrap showcase-grid">
+    <div class="reveal">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen"><img src="assets/app-bible.png" alt="FWMH running on an Android phone: the bundled Bible reader with the bottom navigation bar — Bible, Plan, Collections, Notes, Search and Settings." width="1080" height="2400" loading="lazy" data-i18n-attr="alt:sc.alt" /></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow" data-i18n="sc.eyebrow">See it running</span>
+      <h2 class="section-title" data-i18n="sc.title">Real app. Real device.</h2>
+      <p class="lede" style="margin-bottom:20px" data-i18n="sc.lede">This is FWMH on Android — the same local-first reader and editor you’ll hold. Warm, calm and quiet: no ads, no feed, just Scripture and your notes.</p>
+      <ul class="showcase-points">
+        <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 20V9"/></svg></span><div><h4 data-i18n="sc.p1.h">The whole study in one place</h4><p data-i18n="sc.p1.p">Bible, Plan, Collections, Notes, Search and Settings — everything a tap away on the bottom bar.</p></div></li>
+        <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v12M8 11l4 4 4-4M5 21h14"/></svg></span><div><h4 data-i18n="sc.p2.h">Bundled, offline Bible</h4><p data-i18n="sc.p2.p">Every chapter loads from the Bible bundled on your device — no signal and no account required.</p></div></li>
+        <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 5.5A2 2 0 0 1 6 4h12v14H6a2 2 0 0 0-2 2z"/><path d="M9 8h6"/></svg></span><div><h4 data-i18n="sc.p3.h">Tap a chip, read in context</h4><p data-i18n="sc.p3.p">Open a note and tap a scripture chip to jump straight to the passage, then back to your writing.</p></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAS -->
+<section class="section-pad" id="who" style="padding-top:0">
+  <div class="wrap">
+    <div class="reveal" style="max-width:60ch">
+      <span class="eyebrow" data-i18n="who.eyebrow">Who it’s for</span>
+      <h2 class="section-title" data-i18n="who.title">Built for people who write while they study.</h2>
+    </div>
+    <div class="persona-grid">
+      <div class="persona reveal"><div class="emoji">✍️</div><h4 data-i18n="who.p1.h">Sermon note-takers</h4><p data-i18n="who.p1.p">Write during the talk as it crosses passages — no navigating away to attach a thought.</p></div>
+      <div class="persona reveal"><div class="emoji">🫂</div><h4 data-i18n="who.p2.h">小組 &amp; house-church</h4><p data-i18n="who.p2.p">Cell groups and Bible studies who want a shared, verse-indexed memory of what the group saw.</p></div>
+      <div class="persona reveal"><div class="emoji">🌅</div><h4 data-i18n="who.p3.h">Quiet-time journalers</h4><p data-i18n="who.p3.p">靈修 writers who return to a verse and find everything they’ve ever prayed through it.</p></div>
+      <div class="persona reveal"><div class="emoji">📖</div><h4 data-i18n="who.p4.h">Preachers &amp; teachers</h4><p data-i18n="who.p4.p">Prepare across Genesis, Luke, and Romans in one session with a writing-first, multi-anchor flow.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BIBLES -->
+<section class="bibles section-pad" id="bibles">
+  <div class="wrap">
+    <div class="reveal" style="max-width:62ch">
+      <span class="eyebrow" data-i18n="bibles.eyebrow">Bibles &amp; languages</span>
+      <h2 class="section-title" data-i18n="bibles.title">Honest texts, honestly licensed.</h2>
+      <p class="lede" data-i18n="bibles.lede">FWMH launches with public-domain and openly-licensed Scripture — no scraping, no borrowed API. Your notes store references and your own words, never copyrighted verse text.</p>
+    </div>
+    <div class="bible-grid">
+      <div class="bpanel reveal">
+        <h3 data-i18n="bibles.p1.h">Scripture at launch</h3>
+        <div class="brow"><span class="code pd">KJV</span><span class="bn">King James Version <small data-i18n="bibles.p1.kjv">English · public domain (1769 Blayney text)</small></span></div>
+        <div class="brow"><span class="code pd">和合本</span><span class="bn">Chinese Union Version <small data-i18n="bibles.p1.cuv">中文 · public domain (CUV, 1919)</small></span></div>
+        <div class="brow"><span class="code pd">當代譯本</span><span class="bn">Chinese Contemporary Bible <small data-i18n="bibles.p1.occb">中文 · openly licensed (CC BY-SA), © Biblica</small></span></div>
+        <div class="brow"><span class="code">✦</span><span class="bn" data-i18n="bibles.p1.extras">Strong’s concordance, STEP senses &amp; ~340k cross-references</span></div>
+      </div>
+      <div class="bpanel reveal">
+        <h3 data-i18n="bibles.p2.h">Languages &amp; reach</h3>
+        <div class="brow"><span class="code">EN</span><span class="bn">English <small data-i18n="bibles.p2.en">Full app interface</small></span></div>
+        <div class="brow"><span class="code">繁</span><span class="bn">繁體中文 <small data-i18n="bibles.p2.hant">Traditional-Chinese interface &amp; reference parsing</small></span></div>
+        <div class="brow"><span class="code">简</span><span class="bn">简体中文 <small data-i18n="bibles.p2.hans">Simplified-Chinese interface &amp; reference parsing</small></span></div>
+        <div class="brow"><span class="code pd" data-i18n="bibles.p2.soon.code">SOON</span><span class="bn" data-i18n="bibles.p2.soon">Licensed modern translations — added over time, under publishers’ terms</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="section-pad" id="how">
+  <div class="wrap">
+    <div class="reveal" style="max-width:60ch">
+      <span class="eyebrow" data-i18n="how.eyebrow">A Sunday morning</span>
+      <h2 class="section-title" data-i18n="how.title">Watch it assemble itself.</h2>
+    </div>
+    <div class="problem-grid grid3">
+      <div class="pcard reveal" style="padding:28px"><h3 style="font-family:var(--font-display);font-size:22px;color:var(--accent-text)">01</h3><p style="font-size:15px;margin-top:8px" data-i18n="how.1">The speaker opens in Genesis. You type “Gen 1:1”. It becomes a chip and quotes the verse. You keep writing your own thoughts underneath.</p></div>
+      <div class="pcard reveal" style="padding:28px"><h3 style="font-family:var(--font-display);font-size:22px;color:var(--accent-text)">02</h3><p style="font-size:15px;margin-top:8px" data-i18n="how.2">He jumps to the birth narrative. You type “Luke 2”. Another chip appears. You never left your note — no filing, no tab-switching.</p></div>
+      <div class="pcard reveal" style="padding:28px"><h3 style="font-family:var(--font-display);font-size:22px;color:var(--accent-text)">03</h3><p style="font-size:15px;margin-top:8px" data-i18n="how.3">Two months later you prepare your own study on Genesis 1. You open the verse — and this morning’s note is already there, waiting on it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TOGETHER: streaks & group devotions -->
+<section class="section-pad together" id="together">
+  <div class="wrap">
+    <div class="reveal" style="max-width:64ch">
+      <span class="eyebrow" data-i18n="tog.eyebrow">Streaks &amp; group devotions</span>
+      <h2 class="section-title" data-i18n="tog.title">Stay in rhythm — together.</h2>
+      <p class="lede" data-i18n="tog.lede">A daily streak keeps your own practice honest. Group devotions bring your 小組 into it — a little Snapchat, a little accountability app — and when your circle shows up together, everyone earns a gift.</p>
+    </div>
+
+    <div class="reveal" style="margin-top:40px">
+      <h3 class="sub-h" data-i18n="tog.streak.h">The FWMH Streak — free for everyone</h3>
+      <p class="sub-p" data-i18n="tog.streak.p">Do your devotion each day and your streak grows, Snapchat-style. It resets fresh at the start of every month — so it’s always a new beginning, never a guilt trip.</p>
+      <div class="streak-flame"><span aria-hidden="true">🔥</span> <span class="num">21</span> <span data-i18n="tog.streak.label">day streak · resets monthly</span></div>
+    </div>
+
+    <div class="reveal" style="margin-top:44px">
+      <h3 class="sub-h" data-i18n="tog.group.h">Devote as a circle</h3>
+      <p class="sub-p" data-i18n="tog.group.p">Create a group and follow the same plan together, seeing each other’s progress. A free circle holds up to 3 people. Every member on Plus adds room for 10 more.</p>
+      <div class="gsizes">
+        <div class="gsize free"><div class="cap">3</div><div class="who" data-i18n="tog.gs.free">Free circle</div><div class="seat" data-i18n="tog.gs.free.s">No Plus needed</div></div>
+        <div class="gsize"><div class="cap">10</div><div class="who" data-i18n="tog.gs.1">With 1 Plus member</div><div class="seat" data-i18n="tog.gs.1.s">+10 seats</div></div>
+        <div class="gsize"><div class="cap">20</div><div class="who" data-i18n="tog.gs.2">With 2 Plus members</div><div class="seat" data-i18n="tog.gs.2.s">+10 each</div></div>
+        <div class="gsize"><div class="cap">30+</div><div class="who" data-i18n="tog.gs.more">And up</div><div class="seat" data-i18n="tog.gs.more.s">+10 per Plus member</div></div>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:48px">
+      <h3 class="sub-h" data-i18n="tog.rw.h">Show up together, get rewarded</h3>
+      <p class="sub-p" data-i18n="tog.rw.p">At the end of each month we total everyone’s devotion days. The more your circle showed up, the bigger the gift — and it goes to every member.</p>
+      <div class="rewards">
+        <div class="reward"><div class="pct">20%</div><h4 data-i18n="tog.rw.20.h">20% off</h4><p data-i18n="tog.rw.20.p">When your group reaches 20% attendance for the month.</p></div>
+        <div class="reward"><div class="pct">50%</div><h4 data-i18n="tog.rw.50.h">50% off</h4><p data-i18n="tog.rw.50.p">When your group reaches 50% attendance for the month.</p></div>
+        <div class="reward top"><div class="pct">100%</div><h4 data-i18n="tog.rw.100.h">Buy one month, get one free</h4><p data-i18n="tog.rw.100.p">When everyone shows up — missing no more than 2 days each — every member’s next month is on us.</p><span class="gift" data-i18n="tog.rw.100.gift">🎁 Gift for all</span></div>
+      </div>
+      <div class="formula">
+        <span data-i18n="tog.formula.1"><b>How attendance is counted.</b> We add up every devotion day completed by every member, then divide by the days possible — members multiplied by the days in the month.</span>
+        <div class="eq" data-i18n="tog.formula.eq">attendance = Σ (all members’ days) ÷ (members × days in month)</div>
+        <span data-i18n="tog.formula.2" style="display:block">So if 9 of 10 members show up every single day and one never joins, that’s still <b>90%</b> — a 50%-off month for the whole circle.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section-pad" id="pricing" style="padding-top:0">
+  <div class="wrap">
+    <div class="reveal" style="max-width:62ch">
+      <span class="eyebrow" data-i18n="price.eyebrow">Pricing</span>
+      <h2 class="section-title" data-i18n="price.title">The core is free. Plus goes deeper.</h2>
+      <p class="lede" data-i18n="price.lede">Reading Scripture, taking notes, backlinks and export are free forever on your device. FWMH Plus unlocks the advanced study views, watermark-free sharing, cloud sync, group devotions and AI — with a student price for those who need it.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price free reveal">
+        <div class="ph"><h3 data-i18n="price.free.h">Free</h3><span class="free-tag" data-i18n="price.free.tag">Forever, on-device</span></div>
+        <div class="plan-price"><span class="now" data-i18n="price.free.amount">US$0</span></div>
+        <p data-i18n="price.free.p">The whole note-taking core — no card, no trial clock.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="price.free.1">KJV, 和合本 &amp; 當代譯本 reading</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="price.free.2">The full block editor &amp; scripture chips</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="price.free.3">Per-verse backlinks, graph &amp; Strong’s</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="price.free.4">Offline everything, encrypted on-device</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="price.free.5">Markdown &amp; JSON export, ungated</span></li>
+        </ul>
+      </div>
+      <div class="price paid reveal">
+        <div class="ph"><h3 data-i18n="price.plus.h">FWMH Plus</h3><span class="free-tag" style="color:var(--accent-text)" data-i18n="price.plus.tag">Intro pricing</span></div>
+        <p data-i18n="price.plus.p" style="margin-bottom:8px">Everything in Free, plus the advanced Bible views, watermark-free sharing, cloud sync, group devotions and AI companions.</p>
+        <div class="plan-tabs">
+          <div class="plan-tab">
+            <div class="lab" data-i18n="price.plus.ind.lab">Individual</div>
+            <div class="pr">US$11.49</div>
+            <div class="per" data-i18n="price.per">per month</div>
+            <div class="old">US$16.49</div>
+          </div>
+          <div class="plan-tab best">
+            <span class="badge-best" data-i18n="price.plus.badge">Best value</span>
+            <div class="lab" data-i18n="price.plus.stu.lab">Student</div>
+            <div class="pr">US$7.59</div>
+            <div class="per" data-i18n="price.per">per month</div>
+            <div class="old">US$11.49</div>
+          </div>
+        </div>
+        <a href="#waitlist" class="btn btn-primary" style="width:100%" data-i18n="price.plus.cta">Get Plus at launch</a>
+        <p style="font-size:12.5px;color:var(--ink-3);margin-top:12px" data-i18n="price.plus.small">Student price requires valid student status. Launch pricing, shown per month in USD.</p>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:56px;max-width:60ch">
+      <h3 class="section-title" style="font-size:clamp(22px,3vw,30px)" data-i18n="cmp.title">Free vs Plus, feature by feature.</h3>
+    </div>
+    <div class="cmp-wrap reveal">
+      <table class="cmp">
+        <thead><tr>
+          <th data-i18n="cmp.head.feat">Feature</th>
+          <th class="col" data-i18n="cmp.head.free">Free</th>
+          <th class="col paid" data-i18n="cmp.head.plus">Plus</th>
+        </tr></thead>
+        <tbody>
+          <tr class="grp"><td colspan="3" data-i18n="cmp.g1">The core — always free</td></tr>
+          <tr><td class="feat" data-i18n="cmp.r.read">Read KJV · 和合本 · 當代譯本</td><td class="cell ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td><td class="cell ck paidcol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td></tr>
+          <tr><td class="feat" data-i18n="cmp.r.editor">Block editor &amp; scripture chips</td><td class="cell ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td><td class="cell ck paidcol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td></tr>
+          <tr><td class="feat" data-i18n="cmp.r.backlinks">Per-verse backlinks &amp; graph</td><td class="cell ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td><td class="cell ck paidcol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td></tr>
+          <tr><td class="feat" data-i18n="cmp.r.strongs">Strong’s concordance &amp; STEP senses</td><td class="cell ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td><td class="cell ck paidcol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td></tr>
+          <tr><td class="feat" data-i18n="cmp.r.offline">Offline &amp; encrypted on-device</td><td class="cell ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td><td class="cell ck paidcol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td></tr>
+          <tr><td class="feat" data-i18n="cmp.r.export">Markdown &amp; JSON export</td><td class="cell ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td><td class="cell ck paidcol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td></tr>
+          <tr><td class="feat"><span data-i18n="cmp.r.streak">FWMH Streak</span><small data-i18n="cmp.s.streak">Snapchat-style · resets each month</small></td><td class="cell ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td><td class="cell ck paidcol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td></tr>
+          <tr class="grp"><td colspan="3" data-i18n="cmp.g2">FWMH Plus</td></tr>
+          <tr><td class="feat"><span data-i18n="cmp.r.ig">Share to Instagram</span></td><td class="cell"><span class="tag2" data-i18n="cmp.v.watermark">Watermark</span></td><td class="cell paidcol"><span class="tag2" style="color:var(--accent-text);font-weight:600" data-i18n="cmp.v.nowatermark">No watermark</span></td></tr>
+          <tr><td class="feat"><span data-i18n="cmp.r.chargraph">Bible character relationship graph</span><small data-i18n="cmp.s.advview">Advanced Bible view</small></td><td class="cell"><span class="no">–</span></td><td class="cell ck paidcol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td></tr>
+          <tr><td class="feat"><span data-i18n="cmp.r.timeline">Chronological timeline &amp; geographic map</span><small data-i18n="cmp.s.advview">Advanced Bible view</small></td><td class="cell"><span class="no">–</span></td><td class="cell ck paidcol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td></tr>
+          <tr><td class="feat" data-i18n="cmp.r.sync">Note cloud sync across devices</td><td class="cell"><span class="no">–</span></td><td class="cell ck paidcol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td></tr>
+          <tr><td class="feat"><span data-i18n="cmp.r.group">Group devotions with shared progress</span><small data-i18n="cmp.s.group">Snapchat-style rhythm for your 小組</small></td><td class="cell"><span class="tag2" data-i18n="cmp.v.upto3">Up to 3</span></td><td class="cell paidcol"><span class="tag2" style="color:var(--accent-text);font-weight:600" data-i18n="cmp.v.perseat">+10 per member</span></td></tr>
+          <tr><td class="feat" data-i18n="cmp.r.aiplan">AI devotion planning</td><td class="cell"><span class="no">–</span></td><td class="cell ck paidcol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td></tr>
+          <tr><td class="feat" data-i18n="cmp.r.aipartner">AI devotion partner</td><td class="cell"><span class="no">–</span></td><td class="cell ck paidcol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="reveal" style="margin-top:56px;max-width:60ch">
+      <span class="eyebrow" data-i18n="pfaq.eyebrow">Good to know</span>
+      <h3 class="section-title" style="font-size:clamp(22px,3vw,30px)" data-i18n="pfaq.title">Pricing questions.</h3>
+    </div>
+    <div class="faq reveal" style="margin-top:16px">
+      <details><summary><span data-i18n="pfaq.q1">Do I have to pay to use FWMH?</span> <span class="plus" aria-hidden="true">+</span></summary><div class="fa-body" data-i18n="pfaq.a1">No. Reading Scripture, taking notes, per-verse backlinks, Strong’s, and Markdown/JSON export are free forever on your device. FWMH Plus is entirely optional.</div></details>
+      <details><summary><span data-i18n="pfaq.q2">What happens to my notes if I stop paying?</span> <span class="plus" aria-hidden="true">+</span></summary><div class="fa-body" data-i18n="pfaq.a2">They stay yours. Your notes never leave your device when Plus ends, and your export is never locked — only the Plus features (sync, AI, advanced views) switch off.</div></details>
+      <details><summary><span data-i18n="pfaq.q3">Is there a student discount?</span> <span class="plus" aria-hidden="true">+</span></summary><div class="fa-body" data-i18n="pfaq.a3">Yes. Students pay US$7.59 per month instead of US$11.49, with valid student status — the best value on Plus.</div></details>
+      <details><summary><span data-i18n="pfaq.q4">Can I cancel anytime?</span> <span class="plus" aria-hidden="true">+</span></summary><div class="fa-body" data-i18n="pfaq.a4">Yes, from the App Store or Google Play. You keep Plus until the end of the period you’ve already paid for, then it simply lapses to Free.</div></details>
+      <details><summary><span data-i18n="pfaq.q5">Is the price monthly?</span> <span class="plus" aria-hidden="true">+</span></summary><div class="fa-body" data-i18n="pfaq.a5">Yes — the prices shown are per month in USD. These are launch prices; joining the waitlist early lets you lock them in.</div></details>
+      <details><summary><span data-i18n="pfaq.q6">Do you show ads or sell my data?</span> <span class="plus" aria-hidden="true">+</span></summary><div class="fa-body" data-i18n="pfaq.a6">Never. No ads, no feed, no streaks — and we never read your note content for analytics, on any tier.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+<section class="section-pad waitlist" id="waitlist">
+  <div class="wrap">
+    <div class="waitlist-card reveal">
+      <span class="eyebrow" style="justify-content:center" data-i18n="wl.eyebrow">Be there at launch</span>
+      <h2 style="margin:14px 0 12px" data-i18n="wl.title">Get the first invite.</h2>
+      <p class="lede" style="margin:0 auto;text-align:center" data-i18n="wl.lede">FWMH is in active development for iOS and Android. Leave your email and we’ll send you the beta before anyone else — no noise, just the launch.</p>
+      <form class="wl-form" id="waitlistForm" novalidate>
+        <label for="wlEmail" class="visually-hidden" data-i18n="wl.label">Email address</label>
+        <input type="email" id="wlEmail" name="email" placeholder="you@example.com" autocomplete="email" required data-i18n-attr="placeholder:wl.placeholder" />
+        <button type="submit" class="btn btn-primary" data-i18n="wl.submit">Notify me</button>
+      </form>
+      <div class="wl-success" id="wlSuccess" role="status">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <span data-i18n="wl.success">You’re on the list. We’ll be in touch before launch.</span>
+      </div>
+      <p class="wl-note" data-i18n="wl.smallprint">We’ll only email you about FWMH. Unsubscribe any time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section-pad" id="faq" style="padding-top:0">
+  <div class="wrap">
+    <div class="reveal" style="max-width:60ch">
+      <span class="eyebrow" data-i18n="faq.eyebrow">Questions</span>
+      <h2 class="section-title" data-i18n="faq.title">Good things to ask.</h2>
+    </div>
+    <div class="faq reveal">
+      <details><summary><span data-i18n="faq.q1">Is FWMH just another Bible reading app?</span> <span class="plus" aria-hidden="true">+</span></summary><div class="fa-body" data-i18n="faq.a1">No. It’s a writing app that understands Scripture. If you mostly want to read, YouVersion is excellent and we don’t try to beat it. FWMH is for the moment you want to write — and have every note gather itself back onto the verse.</div></details>
+      <details><summary><span data-i18n="faq.q2">Does it work offline?</span> <span class="plus" aria-hidden="true">+</span></summary><div class="fa-body" data-i18n="faq.a2">Yes — offline is mandatory, not a feature. Both reading and writing work with no signal. Your notes live on-device in an encrypted store and sync to the cloud only when you choose to enable it.</div></details>
+      <details><summary><span data-i18n="faq.q3">Which Bibles and languages are supported?</span> <span class="plus" aria-hidden="true">+</span></summary><div class="fa-body" data-i18n="faq.a3">At launch: the King James Version (English), 和合本 / CUV and 當代譯本 (Chinese), plus Strong’s concordance and cross-references. The interface runs in English, 繁體中文 and 简体中文. Licensed modern translations are added over time.</div></details>
+      <details><summary><span data-i18n="faq.q4">Who owns my notes?</span> <span class="plus" aria-hidden="true">+</span></summary><div class="fa-body" data-i18n="faq.a4">You do. Full lossless Markdown and JSON export is always available, on every tier. There’s no lock-in and no closed ecosystem — your words and your export are never gated behind a subscription.</div></details>
+      <details><summary><span data-i18n="faq.q5">When does it launch?</span> <span class="plus" aria-hidden="true">+</span></summary><div class="fa-body" data-i18n="faq.a5">FWMH is in active development for iOS and Android. Join the waitlist above and you’ll get the beta invite before the public release.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-about">
+      <a href="#top" class="brand"><span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3C8.6 7.6 6.5 10.8 6.5 14a5.5 5.5 0 0 0 11 0C17.5 10.8 15.4 7.6 12 3z" fill="#3d2600"/><circle cx="12" cy="14.5" r="2" fill="#ffb03c"/></svg></span><span class="word"><b>FWMH</b><small data-i18n="brand.tagline">flow with milk &amp; honey</small></span></a>
+      <p data-i18n="foot.about">A scripture-aware notebook for people who study the Bible and write about it. Write freely; every note finds its way back to the verse.</p>
+    </div>
+    <div class="foot-col">
+      <h5 data-i18n="foot.product">Product</h5>
+      <a href="#idea" data-i18n="nav.idea">The idea</a>
+      <a href="#features" data-i18n="nav.features">Features</a>
+      <a href="#bibles" data-i18n="nav.bibles">Bibles &amp; languages</a>
+      <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+      <a href="#waitlist" data-i18n="nav.cta">Join the waitlist</a>
+    </div>
+    <div class="foot-col">
+      <h5 data-i18n="foot.byteraft">Byteraft</h5>
+      <a href="https://www.byteraft.io/" data-i18n="foot.company">Byteraft Limited</a>
+      <a href="#faq" data-i18n="foot.faq">FAQ</a>
+      <a href="mailto:hello@byteraft.io" data-i18n="foot.contact">Contact</a>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span class="by">© <span id="year">2026</span> FWMH — <span data-i18n="foot.rights">a product of</span> <a href="https://www.byteraft.io/">Byteraft&nbsp;Limited</a>.</span>
+    <span data-i18n="foot.legal">Scripture at launch is public-domain (KJV &amp; 和合本) or openly licensed (當代譯本). Your notes are yours.</span>
+  </div>
+</footer>
+
+<script>
+window.I18N = {"zh-Hant": {"brand.tagline": "流奶&流蜜之地", "nav.idea": "核心理念", "nav.features": "功能特色", "nav.how": "運作方式", "nav.bibles": "譯本&語言", "nav.pricing": "價格方案", "nav.cta": "加入候補名單", "hero.badge": "即將登場 · iOS & Android", "hero.h1a": "流奶", "hero.h1b": "與 蜜 之地。", "hero.lede": "為研讀聖經、動筆寫作的人而設的懂經文筆記本。邊寫邊輸入經文出處，即時化作經文卡片——日後，你寫過的每一則筆記，都會自己回到它所觸及的經文旁。", "hero.cta1": "加入候補名單", "hero.cta2": "了解理念", "hero.m1": "本地優先&離線可用", "hero.m2": "在你的裝置上加密", "hero.m3": "閱讀永遠免費", "mock.head": "主日聚會 · 創造&新造", "mock.title": "今早的筆記", "mock.p1": "整篇信息都繫於一個轉折——從起初的創造，到那新造。他由這裡開始：", "mock.p2": "——我想在這裡多停留一會。", "mock.verse": "「神愛世人，甚至將他的獨生子賜給他們，叫一切信他的，不致滅亡，反得永生。」", "mock.cite": "John 3:16 · KJV", "mock.backlink.head": "你在 3 則筆記裡寫過這節經文", "mock.backlink.r1": "<b>靈修 · 尼哥底母</b> — 「重生」不是努力，而是出生……", "mock.backlink.r2": "<b>小組 · 神的愛</b> — 神愛世人 — 範圍是整個 κόσμος……", "mock.backlink.r3": "<b>查經 · 這份禮物</b> — 「賜給」 — 這動詞承載了整個福音。", "trust.lab": "上線時", "trust.kjv": "英文", "trust.cuv": "中文", "trust.occb": "中文", "trust.strongs": "Strong's 原文彙編", "trust.ui": "繁體 · 简体 · English", "problem.eyebrow": "問題所在", "problem.title": "你的筆記，被困住了。", "problem.lede": "一次坐下，你會引用許多段經文，也希望這些筆記日後回到你身邊——圍繞著經文整理好。可惜今天做不到。要麼寫作被翻查打斷，要麼筆記被鎖在你當初存放的地方。", "problem.c1.tag": "閱讀應用", "problem.c1.body": "讀經一流。但筆記只是純文字，一節一節分開存放，沒有豐富編輯器——也無法打開一節經文，看見你為它寫過的一切。", "problem.c2.tag": "經典書庫", "problem.c2.body": "內容深厚，卻要你先翻查<em>到</em>某節經文才能附上筆記。當一篇信息橫跨 Genesis、Luke 再到 Romans，你整場都在翻查，而不是在寫作。", "problem.c3.name": "紙本", "problem.c3.tag": "筆記本", "problem.c3.body": "寫得快，卻無法搜尋。你去年在 Romans 8:28 旁寫下的筆記早已不見。沒有東西會自己聚回經文那裡。", "problem.c4.tag": "不懂聖經", "problem.c4.body": "以寫作為先，但出處只是一段文字。沒有經文預覽、沒有正典身分、也沒有從經文回到筆記的反向連結。這一切都得你自己動手做。", "idea.eyebrow": "唯一的理念", "idea.title": "順流而寫，不必歸檔。", "idea.q1": "以思緒的速度書寫——並且安心信任", "idea.q2": "每一則筆記都會圍繞它所觸及的經文，自行整理。", "idea.s1.h": "你自由地寫", "idea.s1.p": "輸入「Gen 1:1」、「Luke 2」或「約 3:16」。FWMH 會辨認出來，化成一枚引述經文的行內卡片。你從不需要離開筆記。", "idea.s2.h": "經文出處自動解析", "idea.s2.p": "連續節、跨章、多重出處——英文與中文皆可。信心較低的比對會以可確認的「未連結提及」呈現，絕不悄悄連錯。", "idea.s3.h": "筆記回到經文身旁", "idea.s3.p": "數週後打開 John 3:16，一個面板便列出你曾引用它的每一則筆記——連同你所寫內容的預覽。那道反向連結，正是這個產品的核心。", "flow.l1": "你在句子中途打字", "flow.t1": "……講員一開始翻到", "flow.l2": "它化作一節活的經文", "flow.t2": "……講員一開始翻到", "flow.l3": "輕點它——日後，隨處可及", "flow.t3": "↳ 3 則筆記引用 John 3:16 · 輕點即可全部閱讀", "feat.eyebrow": "內含什麼", "feat.title": "一本讀懂經文的筆記本。", "feat.lede": "Notion 般的書寫體驗，卻能與你一同讀經。以下一切都可離線運作，留在你的裝置上，你的文字始終屬於你。", "feat.f1.h": "經文卡片", "feat.f1.p": "以英文或中文輸入經文出處，它便化成一枚引述經文的行內卡片。單點即可展開適合拇指操作的面板，含各版本分頁與整段經文。", "feat.f2.h": "逐節反向連結", "feat.f2.p": "打開任何一節經文，就能看見曾引用它的每一則筆記——連同你所寫內容的預覽。這一步，別的應用都做不到。", "feat.f3.h": "Strong's 原文彙編", "feat.f3.p": "長按一節經文，穿越英文與中文，直達原文字詞——Strong's 編號、詞典卡片，以及把該字詞出處歸類在一起的 STEP 詞義。", "feat.f4.h": "更深入的字詞研究", "feat.f4.p": "點進一個字詞，看它的字源、語義範圍、神學意涵，以及它在這一節經文中的實際用法——完整研究文章，四福音書全部免費。", "feat.f5.h": "對照譯本", "feat.f5.p": "最多三個版本並排閱讀，以顏色區分——KJV、和合本與當代譯本——或輕點一下，讓卡片在原文與譯文之間切換。", "feat.f6.h": "全文搜尋", "feat.f6.p": "搜尋整本聖經與你的所有筆記——包括中文——即時且離線，搜尋引擎能妥善切分 CJK 文字。", "feat.f7.h": "標籤、關係圖&讀經計劃", "feat.f7.p": "標籤、雙向連結、反向連結關係圖、讀經計劃、合輯與標示——環繞筆記的研讀工具，卻不顯雜亂。", "feat.f8.h": "離線&加密", "feat.f8.p": "閱讀與書寫皆能在無訊號下運作。你的筆記以加密方式（SQLCipher、AES-256）存於裝置本地，並排除於雲端備份之外。", "feat.f9.h": "你的資料屬於你", "feat.f9.p": "無損匯出 Markdown 與 JSON，始終開放、永不設限。沒有綁定、不會擷取、不設封閉生態——我們也絕不會為了分析而讀取你的筆記。", "sc.alt": "FWMH 在 Android 手機上運行：內建聖經閱讀器，底部有導覽列——聖經、計劃、合輯、筆記、搜尋與設定。", "sc.eyebrow": "看它實際運行", "sc.title": "真實的應用，真實的裝置。", "sc.lede": "這是 Android 上的 FWMH——正是你將握在手中的那個本地優先閱讀器與編輯器。溫暖、寧靜、安然：沒有廣告、沒有動態消息，只有經文與你的筆記。", "sc.p1.h": "整個研讀，匯於一處", "sc.p1.p": "聖經、計劃、合輯、筆記、搜尋與設定——底部導覽列上，一點即達。", "sc.p2.h": "內建、離線的聖經", "sc.p2.p": "每一章都從裝置內建的聖經載入——無需訊號、無需帳號。", "sc.p3.h": "輕點卡片，在上下文中閱讀", "sc.p3.p": "打開一則筆記，輕點經文卡片即可直接跳到該段經文，再返回你的書寫。", "who.eyebrow": "為誰而設", "who.title": "為一邊研讀、一邊書寫的人而造。", "who.p1.h": "講道筆記者", "who.p1.p": "信息橫跨多段經文時，邊聽邊寫——不必翻走頁面，就能附上一個念頭。", "who.p2.h": "小組&家庭教會", "who.p2.p": "適合小組與查經班——想要一份共享、以經文為索引的集體記憶，記下大家一同看見的。", "who.p3.h": "靈修札記者", "who.p3.p": "靈修寫作的人，重回一節經文，便找回自己曾為它禱告過的一切。", "who.p4.h": "傳道人&教師", "who.p4.p": "一次備課橫跨 Genesis、Luke 與 Romans，以寫作為先、可同時錨定多處的流暢方式進行。", "bibles.eyebrow": "譯本&語言", "bibles.title": "誠實的經文，誠實地授權。", "bibles.lede": "FWMH 以公有領域及公開授權的經文上線——不擷取、不借用他人 API。你的筆記只儲存出處與你自己的文字，絕不儲存受版權保護的經文。", "bibles.p1.h": "上線時的經文", "bibles.p1.kjv": "英文 · 公有領域（1769 Blayney 版本）", "bibles.p1.cuv": "中文 · 公有領域（和合本，1919）", "bibles.p1.occb": "中文 · 公開授權（CC BY-SA），© Biblica", "bibles.p1.extras": "Strong's 原文彙編、STEP 詞義&約 34 萬條交叉引用", "bibles.p2.h": "語言&涵蓋範圍", "bibles.p2.en": "完整應用介面", "bibles.p2.hant": "繁體中文介面&出處解析", "bibles.p2.hans": "簡體中文介面&出處解析", "bibles.p2.soon.code": "即將推出", "bibles.p2.soon": "授權的現代譯本——依出版社條款，陸續加入", "how.eyebrow": "一個主日早晨", "how.title": "看它自己組織起來。", "how.1": "講員從 Genesis 開始。你輸入「Gen 1:1」。它化成一枚卡片，引出那節經文。你在底下繼續寫自己的思緒。", "how.2": "他跳到降生的記述。你輸入「Luke 2」。又一枚卡片出現。你從未離開筆記——不必歸檔，不必切換分頁。", "how.3": "兩個月後，你為 Genesis 1 預備自己的查經。你打開那節經文——今早的筆記早已在那裡，靜靜等候。", "tog.eyebrow": "連續紀錄&小組靈修", "tog.title": "保持節奏——一起同行。", "tog.lede": "每日連續紀錄，讓你自己的操練踏實可信。小組靈修把你的小組一同拉進來——有點像 Snapchat，也有點像自律應用——當你的圈子一起現身，人人都得著禮物。", "tog.streak.h": "FWMH 連續紀錄——人人免費", "tog.streak.p": "每天完成靈修，你的連續紀錄便像 Snapchat 那樣增長。每月月初重新歸零——所以永遠是新的開始，絕不是內疚的枷鎖。", "tog.streak.label": "天連續紀錄 · 每月重置", "tog.group.h": "以一個圈子一同靈修", "tog.group.p": "建立一個群組，一起跟同一個計劃，彼此看見進度。免費圈子最多可容納 3 人。每有一位 Plus 成員，就再多 10 個名額。", "tog.gs.free": "免費圈子", "tog.gs.free.s": "無需 Plus", "tog.gs.1": "有 1 位 Plus 成員", "tog.gs.1.s": "+10 個名額", "tog.gs.2": "有 2 位 Plus 成員", "tog.gs.2.s": "每位 +10", "tog.gs.more": "以此類推", "tog.gs.more.s": "每位 Plus 成員 +10", "tog.rw.h": "一起現身，一起得賞", "tog.rw.p": "每月月底，我們統計所有人的靈修天數。你的圈子越常現身，禮物越豐厚——而且人人有份。", "tog.rw.20.h": "8 折", "tog.rw.20.p": "當你的群組本月出席率達到 20%。", "tog.rw.50.h": "5 折", "tog.rw.50.p": "當你的群組本月出席率達到 50%。", "tog.rw.100.h": "買一個月，送一個月", "tog.rw.100.p": "當人人都現身——每人缺席不超過 2 天——每位成員的下個月都由我們請客。", "tog.rw.100.gift": "🎁 人人有禮", "tog.formula.1": "<b>出席率如何計算。</b>我們把每位成員完成的每個靈修日全部加總，再除以可能的總天數——成員人數乘以當月天數。", "tog.formula.eq": "出席率 = Σ（所有成員的天數）÷（成員人數 × 當月天數）", "tog.formula.2": "所以，若 10 位成員中有 9 位天天現身，而一位從未加入，那仍然是 <b>90%</b>——全圈子享 5 折的一個月。", "price.eyebrow": "價格方案", "price.title": "核心免費。Plus 更深一層。", "price.lede": "讀經、寫筆記、反向連結與匯出，在你的裝置上永遠免費。FWMH Plus 解鎖進階研讀檢視、無浮水印分享、雲端同步、小組靈修與 AI——並為有需要的人提供學生價。", "price.free.h": "免費", "price.free.tag": "永久，於裝置本地", "price.free.amount": "US$0", "price.free.p": "完整的筆記核心——不用信用卡，沒有試用倒數。", "price.free.1": "KJV、和合本&當代譯本閱讀", "price.free.2": "完整區塊編輯器&經文卡片", "price.free.3": "逐節反向連結、關係圖&Strong's", "price.free.4": "一切離線可用，於裝置本地加密", "price.free.5": "Markdown&JSON 匯出，不設限", "price.plus.h": "FWMH Plus", "price.plus.tag": "首發優惠價", "price.plus.p": "免費版的一切，再加上進階聖經檢視、無浮水印分享、雲端同步、小組靈修與 AI 夥伴。", "price.plus.ind.lab": "個人", "price.per": "每月", "price.plus.badge": "最超值", "price.plus.stu.lab": "學生", "price.plus.cta": "上線即享 Plus", "price.plus.small": "學生價須具備有效學生身分。上線優惠價，以美元按月顯示。", "cmp.title": "免費版 vs Plus，逐項比較。", "cmp.head.feat": "功能", "cmp.head.free": "免費", "cmp.head.plus": "Plus", "cmp.g1": "核心——永遠免費", "cmp.r.read": "閱讀 KJV · 和合本 · 當代譯本", "cmp.r.editor": "區塊編輯器&經文卡片", "cmp.r.backlinks": "逐節反向連結&關係圖", "cmp.r.strongs": "Strong's 原文彙編&STEP 詞義", "cmp.r.offline": "離線&於裝置本地加密", "cmp.r.export": "Markdown&JSON 匯出", "cmp.r.streak": "FWMH 連續紀錄", "cmp.s.streak": "Snapchat 風格 · 每月重置", "cmp.g2": "FWMH Plus", "cmp.r.ig": "分享至 Instagram", "cmp.v.watermark": "有浮水印", "cmp.v.nowatermark": "無浮水印", "cmp.r.chargraph": "聖經人物關係圖", "cmp.s.advview": "進階聖經檢視", "cmp.r.timeline": "年代時間軸&地理地圖", "cmp.r.sync": "跨裝置筆記雲端同步", "cmp.r.group": "小組靈修，進度共享", "cmp.s.group": "為你的小組帶來 Snapchat 風格的節奏", "cmp.v.upto3": "最多 3 人", "cmp.v.perseat": "每位成員 +10", "cmp.r.aiplan": "AI 靈修規劃", "cmp.r.aipartner": "AI 靈修夥伴", "pfaq.eyebrow": "值得一提", "pfaq.title": "價格相關問題。", "pfaq.q1": "使用 FWMH 一定要付費嗎？", "pfaq.a1": "不用。讀經、寫筆記、逐節反向連結、Strong's，以及 Markdown/JSON 匯出，在你的裝置上永遠免費。FWMH Plus 完全是選用的。", "pfaq.q2": "如果我停止付費，我的筆記會怎樣？", "pfaq.a2": "它們依然屬於你。Plus 結束時，你的筆記絕不會離開裝置，匯出也永不上鎖——只有 Plus 功能（同步、AI、進階檢視）會關閉。", "pfaq.q3": "有學生折扣嗎？", "pfaq.a3": "有。學生每月付 US$7.59，而非 US$11.49，須具備有效學生身分——是 Plus 中最超值的選擇。", "pfaq.q4": "我可以隨時取消嗎？", "pfaq.a4": "可以，從 App Store 或 Google Play 操作。你已付費的期間內仍保有 Plus，期滿後便自然降回免費版。", "pfaq.q5": "價格是按月計算嗎？", "pfaq.a5": "是的——顯示的價格皆為每月美元計。這些是上線優惠價；及早加入候補名單，就能鎖定這個價格。", "pfaq.q6": "你們會顯示廣告或出售我的資料嗎？", "pfaq.a6": "絕不會。沒有廣告、沒有動態消息、沒有連續紀錄的壓力——任何方案下，我們都絕不會為了分析而讀取你的筆記內容。", "wl.eyebrow": "上線第一時間到場", "wl.title": "搶得第一份邀請。", "wl.lede": "FWMH 正為 iOS 與 Android 積極開發中。留下你的電郵，我們會比任何人更早把 beta 版送到你手上——沒有雜訊，只有上線消息。", "wl.label": "電郵地址", "wl.placeholder": "you@example.com", "wl.submit": "通知我", "wl.success": "你已在名單上。我們會在上線前與你聯絡。", "wl.smallprint": "我們只會就 FWMH 向你發送電郵。隨時可取消訂閱。", "faq.eyebrow": "疑問", "faq.title": "值得一問的好問題。", "faq.q1": "FWMH 只是又一個讀經應用嗎？", "faq.a1": "不是。它是一個懂經文的寫作應用。如果你主要想閱讀，YouVersion 非常出色，我們也不打算超越它。FWMH 是為你想動筆的那一刻而設——並讓每一則筆記都自己聚回經文旁。", "faq.q2": "它能離線運作嗎？", "faq.a2": "可以——離線是必備，而不只是一項功能。閱讀與書寫都能在無訊號下運作。你的筆記以加密方式存於裝置本地，只有你選擇啟用時才會同步到雲端。", "faq.q3": "支援哪些譯本與語言？", "faq.a3": "上線時：King James Version（英文）、和合本 / CUV 與當代譯本（中文），以及 Strong's 原文彙編與交叉引用。介面支援 English、繁體中文與简体中文。授權的現代譯本會陸續加入。", "faq.q4": "我的筆記歸誰所有？", "faq.a4": "歸你所有。完整無損的 Markdown 與 JSON 匯出，在每個方案中始終可用。沒有綁定、沒有封閉生態——你的文字與匯出，絕不會被訂閱鎖住。", "faq.q5": "它何時上線？", "faq.a5": "FWMH 正為 iOS 與 Android 積極開發中。加入上方的候補名單，你就能在公開發布前收到 beta 版邀請。", "foot.about": "為研讀聖經、動筆寫作的人而設的懂經文筆記本。自由地寫；每一則筆記都會找到回到經文旁的路。", "foot.product": "產品", "foot.byteraft": "Byteraft", "foot.company": "Byteraft Limited", "foot.faq": "常見問題", "foot.contact": "聯絡我們", "foot.rights": "出品：", "foot.legal": "上線時的經文屬公有領域（KJV&和合本）或公開授權（當代譯本）。你的筆記屬於你。"}, "zh-Hans": {"brand.tagline": "流淌着奶 & 蜜", "nav.idea": "理念", "nav.features": "功能", "nav.how": "运作方式", "nav.bibles": "圣经译本 & 语言", "nav.pricing": "价格", "nav.cta": "加入候补名单", "hero.badge": "即将上线 · iOS & Android", "hero.h1a": "流淌于", "hero.h1b": "奶 与 蜜之间。", "hero.lede": "一本读懂经文的笔记本，为查经与写作的人而造。写作时输入经文出处，它会实时化作一枚引用经文的卡片；日后，你写下的每一则笔记，都会自动回到它所触及的那段经文。", "hero.cta1": "加入候补名单", "hero.cta2": "了解理念", "hero.m1": "本地优先 & 离线", "hero.m2": "在你的设备上加密保存", "hero.m3": "阅读始终免费", "mock.head": "主日聚会 · 创造 & 新造", "mock.title": "今早的笔记", "mock.p1": "整篇信息都系于一个转折——从起初的创造，到新的创造。他从这里讲起：", "mock.p2": "——我想在此停留默想。", "mock.verse": "“神爱世人，甚至将他的独生子赐给他们，叫一切信他的，不至灭亡，反得永生。”", "mock.cite": "John 3:16 · KJV", "mock.backlink.head": "你已在 3 则笔记中写到这节经文", "mock.backlink.r1": "<b>灵修 · 尼哥底母</b> ——“重生”不是努力，而是出生……", "mock.backlink.r2": "<b>小组 · 神的爱</b> ——神爱世人——所涵盖的是整个 κόσμος……", "mock.backlink.r3": "<b>查经 · 这份礼物</b> ——“赐”——这个动词承载了整个福音。", "trust.lab": "上线时", "trust.kjv": "英文", "trust.cuv": "中文", "trust.occb": "中文", "trust.strongs": "Strong's 原文汇编", "trust.ui": "繁体 · 简体 · English", "problem.eyebrow": "问题所在", "problem.title": "你的笔记搁浅了。", "problem.lede": "一次坐下来，你会引用许多段经文，也盼望这些笔记日后能重新回到你面前——围绕经文自动归整。可如今做不到：要么写作被翻页跳转打断，要么笔记被困在你归档的角落里。", "problem.c1.tag": "阅读应用", "problem.c1.body": "阅读体验很棒。但笔记只是纯文本，一节一节地归档，没有富文本编辑器——也无法打开一节经文，看到你围绕它写下的一切。", "problem.c2.tag": "书库", "problem.c2.body": "内容深厚，却要你先翻<em>到</em>某节经文才能附上笔记。当一篇讲道从 Genesis 跳到 Luke，再到 Romans，你整场都在翻页，而不是在写。", "problem.c3.name": "纸笔", "problem.c3.tag": "笔记本", "problem.c3.body": "写得快，却无从搜索。去年你在 Romans 8:28 旁写的笔记早已无处可寻。没有任何东西会自动归聚回那节经文。", "problem.c4.tag": "不懂圣经", "problem.c4.body": "以写作为先，但经文出处只是一串文字。没有经文预览，没有统一的经文身份，也没有从经文回到笔记的反向链接。这一切都得你自己搭建。", "idea.eyebrow": "唯一的理念", "idea.title": "只管流淌，无需归档。", "idea.q1": "以思想的速度书写——并且放心，", "idea.q2": "每一则笔记都会自动围绕它所触及的经文归整。", "idea.s1.h": "你自由地书写", "idea.s1.p": "输入“Gen 1:1”“Luke 2”或“约 3:16”，FWMH 便会识别它，把它变成一枚引用该节经文的内嵌卡片。你无需离开笔记。", "idea.s2.h": "经文出处自动解析", "idea.s2.p": "范围引用、跨章、多处引用——英文与中文皆可。拿不准的匹配会以可确认的“未链接提及”形式呈现，绝不会悄悄链错。", "idea.s3.h": "笔记自会回到经文", "idea.s3.p": "数周之后，打开 John 3:16，一个面板便会列出你曾引用它写下的每一则笔记——并附上内容预览。这条反向链接，正是产品的核心。", "flow.l1": "你在句子中途输入", "flow.t1": "……讲员开场时翻到了", "flow.l2": "它化作一节活的经文", "flow.t2": "……讲员开场时翻到了", "flow.l3": "轻点它——日后，随处可查", "flow.t3": "↳ 3 则笔记引用了 John 3:16 · 轻点即可全部阅读", "feat.eyebrow": "功能一览", "feat.title": "一本读懂经文的笔记本。", "feat.lede": "Notion 风格的书写，却会与你一同读经。以下一切都能离线运作，就在你的设备上，你的文字始终属于你。", "feat.f1.h": "经文卡片", "feat.f1.p": "用英文或中文输入经文出处，它便化作一枚引用该节经文的内嵌卡片。轻点一下，弹出方便单手操作的面板，带有版本切换标签与完整经文。", "feat.f2.h": "逐节反向链接", "feat.f2.p": "打开任意一节经文，即可看到曾引用它的每一则笔记——并附上你所写内容的预览。这一步，别的应用都没有做到。", "feat.f3.h": "Strong's 原文汇编", "feat.f3.p": "长按一节经文，穿过英文与中文，直抵原文字词——Strong's 编号、词典卡片，以及把该词出现处归类的 STEP 词义。", "feat.f4.h": "更深的字词研究", "feat.f4.p": "点入一个字词，了解它的词源、语义范围、神学含义，以及它在这一节里的确切用法——完整的研究文章，四卷福音书内全部免费。", "feat.f5.h": "对照译本", "feat.f5.p": "最多三种译本并排对照、以颜色区分——KJV、和合本与当代译本——也可以轻点一下，让某枚卡片在原文与译文间切换。", "feat.f6.h": "全文搜索", "feat.f6.p": "搜索整本圣经与你的全部笔记——包括中文——即时且离线，搜索引擎专为正确切分中日韩文字而打造。", "feat.f7.h": "标签、图谱 & 计划", "feat.f7.p": "标签、维基链接、反向链接图谱、读经计划、合集与高亮——环绕笔记的各样查经工具，却毫不杂乱。", "feat.f8.h": "离线 & 加密", "feat.f8.p": "没有信号时，阅读与写作照常运作。你的笔记加密存放在设备本地（SQLCipher、AES-256），不纳入云端备份。", "feat.f9.h": "你的数据归你所有", "feat.f9.p": "无损的 Markdown 与 JSON 导出，始终可用，绝不设限。没有捆绑锁定，没有数据抓取，没有封闭生态——我们也绝不会为了分析而读取你的笔记。", "sc.alt": "FWMH 运行在一部 Android 手机上：内置的圣经阅读器，底部是导航栏——圣经、计划、合集、笔记、搜索与设置。", "sc.eyebrow": "亲眼看它运行", "sc.title": "真实的应用。真实的设备。", "sc.lede": "这就是 Android 上的 FWMH——正是你即将握在手中的那款本地优先阅读器与编辑器。温暖、安静、沉稳：没有广告，没有信息流，只有经文与你的笔记。", "sc.p1.h": "整个查经空间，尽在一处", "sc.p1.p": "圣经、计划、合集、笔记、搜索与设置——一切都在底部栏，触手可及。", "sc.p2.h": "内置的离线圣经", "sc.p2.p": "每一章都从设备内置的圣经加载——无需信号，也无需账号。", "sc.p3.h": "轻点卡片，在上下文中阅读", "sc.p3.p": "打开一则笔记，轻点经文卡片，即可直接跳到那段经文，再返回你的书写。", "who.eyebrow": "为谁而造", "who.title": "为一边查经、一边书写的人而造。", "who.p1.h": "讲道笔记记录者", "who.p1.p": "信息在经文间穿梭时，你可以边听边写——无需翻走页面去附上一个念头。", "who.p2.h": "小组 & 家庭教会", "who.p2.p": "适合小组与查经班——他们想为组员的领受，留下一份共享、以经文索引的记忆。", "who.p3.h": "灵修札记者", "who.p3.p": "灵修写作者重回一节经文，便能找到自己曾借它祷告的一切。", "who.p4.h": "传道人 & 教师", "who.p4.p": "以写作为先、多锚点的方式，一次备课横跨 Genesis、Luke 与 Romans。", "bibles.eyebrow": "圣经译本 & 语言", "bibles.title": "诚实的文本，诚实的授权。", "bibles.lede": "FWMH 上线时采用公有领域与开放授权的经文——不抓取，也不借用他人 API。你的笔记只存放经文出处与你自己的文字，绝不保存有版权的经文原文。", "bibles.p1.h": "上线时的经文", "bibles.p1.kjv": "英文 · 公有领域（1769 年 Blayney 版）", "bibles.p1.cuv": "中文 · 公有领域（CUV，1919 年）", "bibles.p1.occb": "中文 · 开放授权（CC BY-SA），© Biblica", "bibles.p1.extras": "Strong's 原文汇编、STEP 词义 & 约 34 万条交叉引用", "bibles.p2.h": "语言 & 覆盖范围", "bibles.p2.en": "完整应用界面", "bibles.p2.hant": "繁体中文界面 & 经文出处解析", "bibles.p2.hans": "简体中文界面 & 经文出处解析", "bibles.p2.soon.code": "即将", "bibles.p2.soon": "获授权的现代译本——将陆续加入，遵循出版方条款", "how.eyebrow": "一个主日清晨", "how.title": "看它如何自行成形。", "how.1": "讲员从 Genesis 讲起。你输入“Gen 1:1”，它变成一枚卡片，引出那节经文。你继续在下面写自己的思考。", "how.2": "他跳到耶稣降生的记叙。你输入“Luke 2”，又一枚卡片出现。你从未离开笔记——无需归档，无需切换标签页。", "how.3": "两个月后，你为自己在 Genesis 1 的查经备课。你打开那节经文——今早的笔记早已在那里，静静等候。", "tog.eyebrow": "连续打卡 & 小组灵修", "tog.title": "一起，保持节奏。", "tog.lede": "每日连续打卡，让你自己的操练保持诚实。小组灵修把你的小组也拉进来——有点像 Snapchat，又有点像彼此督责的应用——当你的圈子一同出席时，人人都能得到一份礼物。", "tog.streak.h": "FWMH 连续打卡——人人免费", "tog.streak.p": "每天完成灵修，你的连续记录就会增长，就像 Snapchat 那样。每月月初它都会重新归零——所以永远是崭新的开始，而非愧疚的负担。", "tog.streak.label": "天连续打卡 · 每月重置", "tog.group.h": "以圈子一同灵修", "tog.group.p": "创建一个小组，一起跟随同一个计划，彼此看见进度。免费圈子最多容纳 3 人。每有一位成员开通 Plus，就再增加 10 个名额。", "tog.gs.free": "免费圈子", "tog.gs.free.s": "无需 Plus", "tog.gs.1": "有 1 位 Plus 成员", "tog.gs.1.s": "+10 个名额", "tog.gs.2": "有 2 位 Plus 成员", "tog.gs.2.s": "每位 +10", "tog.gs.more": "以此类推", "tog.gs.more.s": "每位 Plus 成员 +10", "tog.rw.h": "一同出席，共得奖赏", "tog.rw.p": "每月月底，我们会统计每个人的灵修天数。你的圈子出席得越多，礼物就越丰厚——而且人人有份。", "tog.rw.20.h": "8 折优惠", "tog.rw.20.p": "当你的小组当月出席率达到 20% 时。", "tog.rw.50.h": "5 折优惠", "tog.rw.50.p": "当你的小组当月出席率达到 50% 时。", "tog.rw.100.h": "买一月，送一月", "tog.rw.100.p": "当所有人都出席——每人缺席不超过 2 天时——每位成员的下一个月由我们买单。", "tog.rw.100.gift": "🎁 人人有份的礼物", "tog.formula.1": "<b>出席率如何计算。</b>我们把每位成员完成的每一个灵修日加总，再除以可能的总天数——即成员人数乘以当月天数。", "tog.formula.eq": "出席率 = Σ（所有成员的天数）÷（成员人数 × 当月天数）", "tog.formula.2": "所以，若 10 人中有 9 人每天都出席，只有 1 人从不参与，出席率仍有 <b>90%</b>——整个圈子当月享 5 折。", "price.eyebrow": "价格", "price.title": "核心免费。Plus 更进一步。", "price.lede": "阅读经文、记录笔记、反向链接与导出，在你的设备上永久免费。FWMH Plus 解锁进阶研经视图、无水印分享、云端同步、小组灵修与 AI——并为有需要的人提供学生价。", "price.free.h": "免费版", "price.free.tag": "永久，设备本地", "price.free.amount": "US$0", "price.free.p": "完整的笔记核心功能——无需信用卡，没有试用倒计时。", "price.free.1": "阅读 KJV、和合本 & 当代译本", "price.free.2": "完整的块编辑器 & 经文卡片", "price.free.3": "逐节反向链接、图谱 & Strong's", "price.free.4": "一切离线可用，设备本地加密", "price.free.5": "Markdown & JSON 导出，毫无限制", "price.plus.h": "FWMH Plus", "price.plus.tag": "尝鲜价", "price.plus.p": "涵盖免费版的一切，另加进阶圣经视图、无水印分享、云端同步、小组灵修与 AI 灵修伙伴。", "price.plus.ind.lab": "个人", "price.per": "每月", "price.plus.badge": "最超值", "price.plus.stu.lab": "学生", "price.plus.cta": "上线时开通 Plus", "price.plus.small": "学生价需有效的学生身份。此为上线价格，按每月美元计价显示。", "cmp.title": "免费版对比 Plus，逐项对照。", "cmp.head.feat": "功能", "cmp.head.free": "免费版", "cmp.head.plus": "Plus", "cmp.g1": "核心——始终免费", "cmp.r.read": "阅读 KJV · 和合本 · 当代译本", "cmp.r.editor": "块编辑器 & 经文卡片", "cmp.r.backlinks": "逐节反向链接 & 图谱", "cmp.r.strongs": "Strong's 原文汇编 & STEP 词义", "cmp.r.offline": "离线 & 设备本地加密", "cmp.r.export": "Markdown & JSON 导出", "cmp.r.streak": "FWMH 连续打卡", "cmp.s.streak": "Snapchat 风格 · 每月重置", "cmp.g2": "FWMH Plus", "cmp.r.ig": "分享到 Instagram", "cmp.v.watermark": "带水印", "cmp.v.nowatermark": "无水印", "cmp.r.chargraph": "圣经人物关系图谱", "cmp.s.advview": "进阶圣经视图", "cmp.r.timeline": "年代时间线 & 地理地图", "cmp.r.sync": "笔记跨设备云端同步", "cmp.r.group": "小组灵修，进度共享", "cmp.s.group": "为你的小组带来 Snapchat 风格的节奏", "cmp.v.upto3": "最多 3 人", "cmp.v.perseat": "每位成员 +10", "cmp.r.aiplan": "AI 灵修计划", "cmp.r.aipartner": "AI 灵修伙伴", "pfaq.eyebrow": "值得了解", "pfaq.title": "关于价格的问题。", "pfaq.q1": "使用 FWMH 一定要付费吗？", "pfaq.a1": "不必。阅读经文、记录笔记、逐节反向链接、Strong's，以及 Markdown/JSON 导出，都在你的设备上永久免费。FWMH Plus 完全是可选项。", "pfaq.q2": "如果我停止付费，我的笔记会怎样？", "pfaq.a2": "它们依然属于你。Plus 结束时，你的笔记绝不会离开你的设备，导出功能也永不锁定——只有 Plus 的功能（同步、AI、进阶视图）会关闭。", "pfaq.q3": "有学生优惠吗？", "pfaq.a3": "有。凭有效的学生身份，学生每月只需 US$7.59，而非 US$11.49——这是 Plus 上最超值的选择。", "pfaq.q4": "我可以随时取消吗？", "pfaq.a4": "可以，在 App Store 或 Google Play 里操作。你已付费的周期结束前，Plus 会一直保留，之后便自动回到免费版。", "pfaq.q5": "价格是按月计费的吗？", "pfaq.a5": "是的——所示价格均为每月美元计价。这些是上线价格；尽早加入候补名单即可锁定它们。", "pfaq.q6": "你们会展示广告或出售我的数据吗？", "pfaq.a6": "绝不会。没有广告，没有信息流，没有惹人焦虑的连续打卡——无论哪个套餐，我们都绝不会为了分析而读取你的笔记内容。", "wl.eyebrow": "上线时抢先在场", "wl.title": "抢先获得首批邀请。", "wl.lede": "FWMH 正在为 iOS 与 Android 紧锣密鼓地开发中。留下你的邮箱，我们会抢在所有人之前把 beta 版发给你——没有打扰，只有上线消息。", "wl.label": "电子邮箱", "wl.placeholder": "you@example.com", "wl.submit": "通知我", "wl.success": "你已在名单中。上线前我们会与你联系。", "wl.smallprint": "我们只会就 FWMH 相关内容给你发邮件。可随时退订。", "faq.eyebrow": "常见问题", "faq.title": "值得一问的好问题。", "faq.q1": "FWMH 只是又一款读经应用吗？", "faq.a1": "不是。它是一款读懂经文的写作应用。如果你主要是想阅读，YouVersion 已经很出色，我们无意与它一较高下。FWMH 是为你想动笔的那一刻而生——并让每一则笔记都自动归聚回经文。", "faq.q2": "它能离线使用吗？", "faq.a2": "能——离线是必备，不是附加功能。阅读与写作在没有信号时都能运作。你的笔记加密存放在设备本地，只有当你主动开启时才会同步到云端。", "faq.q3": "支持哪些圣经译本与语言？", "faq.a3": "上线时：King James Version（英文）、和合本 / CUV 与当代译本（中文），另加 Strong's 原文汇编与交叉引用。界面支持 English、繁体中文与简体中文。获授权的现代译本将陆续加入。", "faq.q4": "我的笔记归谁所有？", "faq.a4": "归你所有。完整无损的 Markdown 与 JSON 导出始终可用，适用于每一种套餐。没有捆绑锁定，也没有封闭生态——你的文字与导出，绝不会被订阅所设限。", "faq.q5": "它什么时候上线？", "faq.a5": "FWMH 正在为 iOS 与 Android 紧锣密鼓地开发中。在上方加入候补名单，你就能在正式发布前收到 beta 版邀请。", "foot.about": "一本读懂经文的笔记本，为查经并写作的人而造。自由地书写；每一则笔记都会自动回到它的经文。", "foot.product": "产品", "foot.byteraft": "Byteraft", "foot.company": "Byteraft Limited", "foot.faq": "常见问题", "foot.contact": "联系我们", "foot.rights": "出品方", "foot.legal": "上线时的经文属于公有领域（KJV & 和合本）或开放授权（当代译本）。你的笔记归你所有。"}};
+</script>
+<script>
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  var I18N = window.I18N || { "zh-Hant": {}, "zh-Hans": {} };
+  var SUPPORTED = { "en": 1, "zh-Hant": 1, "zh-Hans": 1 };
+  var STORE_KEY = "fwmh-lang";
+
+  /* Capture English originals so we can switch back to EN losslessly */
+  var EN = {};
+  function cap(sel, prop, ds) {
+    document.querySelectorAll(sel).forEach(function (el) {
+      var key = el.getAttribute(ds);
+      if (key && !(key in EN)) EN[key] = prop === "html" ? el.innerHTML : el.textContent;
+    });
+  }
+  cap("[data-i18n]", "html", "data-i18n");
+  cap("[data-i18n-html]", "html", "data-i18n-html");
+  EN["meta.title"] = document.title;
+  var metaDesc = document.querySelector('meta[name="description"]');
+  EN["meta.description"] = metaDesc ? metaDesc.getAttribute("content") : "";
+
+  function mapLang(l) {
+    l = (l || "").toLowerCase();
+    if (l.indexOf("zh") === 0 || l.indexOf("zh") > -1 && /zh/.test(l)) {
+      if (/hant|tw|hk|mo/.test(l)) return "zh-Hant";
+      if (/hans|cn|sg|my/.test(l)) return "zh-Hans";
+      return "zh-Hant";
+    }
+    if (l.indexOf("zh") === 0) return "zh-Hant";
+    return "en";
+  }
+  function detect() {
+    try {
+      var q = new URLSearchParams(window.location.search).get("lang");
+      if (q && SUPPORTED[q]) return q;
+    } catch (e) {}
+    try { var s = localStorage.getItem(STORE_KEY); if (s && SUPPORTED[s]) return s; } catch (e) {}
+    var langs = navigator.languages || [navigator.language || "en"];
+    for (var i = 0; i < langs.length; i++) { var m = mapLang(langs[i]); if (m) return m; }
+    return "en";
+  }
+
+  function t(lang, key) {
+    if (lang === "en") return EN[key];
+    var d = I18N[lang] || {};
+    return (key in d && d[key] != null && d[key] !== "") ? d[key] : EN[key];
+  }
+
+  function apply(lang) {
+    if (!SUPPORTED[lang]) lang = "en";
+    root.setAttribute("lang", lang === "en" ? "en" : lang);
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      var v = t(lang, el.getAttribute("data-i18n")); if (v != null) el.innerHTML = v;
+    });
+    document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
+      var v = t(lang, el.getAttribute("data-i18n-html")); if (v != null) el.innerHTML = v;
+    });
+    document.querySelectorAll("[data-i18n-attr]").forEach(function (el) {
+      el.getAttribute("data-i18n-attr").split(";").forEach(function (pair) {
+        var kv = pair.split(":"); if (kv.length === 2) { var v = t(lang, kv[1].trim()); if (v != null) el.setAttribute(kv[0].trim(), v); }
+      });
+    });
+    var title = t(lang, "meta.title"); if (title) document.title = title;
+    var desc = t(lang, "meta.description"); if (metaDesc && desc) metaDesc.setAttribute("content", desc);
+    document.querySelectorAll(".lang-btn").forEach(function (b) {
+      b.classList.toggle("active", b.getAttribute("data-lang") === lang);
+    });
+    try {
+      var url = new URL(window.location.href);
+      if (lang === "en") url.searchParams.delete("lang"); else url.searchParams.set("lang", lang);
+      window.history.replaceState(null, "", url.toString());
+    } catch (e) {}
+  }
+
+  var current = detect();
+  apply(current);
+
+  document.querySelectorAll(".lang-btn").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var lang = b.getAttribute("data-lang");
+      try { localStorage.setItem(STORE_KEY, lang); } catch (e) {}
+      apply(lang);
+    });
+  });
+
+  /* Theme toggle */
+  try { var saved = localStorage.getItem("fwmh-theme"); if (saved) root.setAttribute("data-theme", saved); } catch (e) {}
+  var toggle = document.getElementById("themeToggle");
+  if (toggle) toggle.addEventListener("click", function () {
+    var mqDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var cur = root.getAttribute("data-theme");
+    var eff = cur === "auto" ? (mqDark ? "dark" : "light") : cur;
+    var next = eff === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("fwmh-theme", next); } catch (e) {}
+  });
+
+  /* Sticky nav */
+  var nav = document.getElementById("nav");
+  var onScroll = function () { nav.classList.toggle("scrolled", window.scrollY > 8); };
+  onScroll(); window.addEventListener("scroll", onScroll, { passive: true });
+
+  /* Mobile menu */
+  var navToggle = document.getElementById("navToggle"), navLinks = document.getElementById("navLinks");
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", function () {
+      var open = navLinks.classList.toggle("open");
+      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    navLinks.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () { navLinks.classList.remove("open"); navToggle.setAttribute("aria-expanded", "false"); });
+    });
+  }
+
+  /* Reveal */
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var items = document.querySelectorAll(".reveal");
+  if (reduce || !("IntersectionObserver" in window)) { items.forEach(function (el) { el.classList.add("in"); }); }
+  else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    items.forEach(function (el) { io.observe(el); });
+  }
+
+  /* Waitlist */
+  var form = document.getElementById("waitlistForm");
+  if (form) form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var input = document.getElementById("wlEmail");
+    if (!input.checkValidity()) { input.focus(); input.reportValidity && input.reportValidity(); return; }
+    form.style.display = "none";
+    document.getElementById("wlSuccess").classList.add("show");
+  });
+
+  /* Year */
+  var y = document.getElementById("year");
+  if (y) { var d = new Date(); if (!isNaN(d.getFullYear())) y.textContent = d.getFullYear(); }
+})();
+</script>
+</body>
+</html>
